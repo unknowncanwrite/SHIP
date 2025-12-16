@@ -142,7 +142,14 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
         <div className="flex-1 max-w-md mx-4 hidden md:block">
           <div className="flex justify-between text-xs mb-1 text-muted-foreground">
             <span>Overall Progress</span>
-            <span>{progress}%</span>
+            <div className="flex items-center gap-3">
+              <span>{progress}%</span>
+              {incompleteTasks.length > 0 && (
+                <span className="text-warning font-semibold flex items-center gap-1">
+                  <span className="text-lg">⚠</span> {incompleteTasks.length} Missed
+                </span>
+              )}
+            </div>
           </div>
           <Progress value={progress} className="h-2" />
         </div>
