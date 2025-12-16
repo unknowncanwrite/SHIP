@@ -5,10 +5,11 @@ import ShipmentCard from './ShipmentCard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Search, Filter, LayoutGrid, List } from 'lucide-react';
+import { Plus, Search, Filter, LayoutGrid, List, Moon, Sun } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { useTheme } from 'next-themes';
 
 export default function Dashboard() {
   const { shipments, createShipment } = useShipmentStore();
@@ -17,6 +18,7 @@ export default function Dashboard() {
   const [_, setLocation] = useLocation();
   const [newId, setNewId] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   const filteredShipments = shipments
     .filter((s) => 
@@ -59,7 +61,12 @@ export default function Dashboard() {
             </h1>
           </div>
           
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+              {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </Button>
+
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button className="bg-accent hover:bg-accent/90 text-white shadow-md transition-all hover:-translate-y-0.5">
                 <Plus className="mr-2 h-4 w-4" /> New Shipment
@@ -91,6 +98,7 @@ export default function Dashboard() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
+          </div>
         </div>
       </header>
 
