@@ -108,6 +108,18 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
   const forwarderMapped = useMemo(() => mapTasks(getForwarderTasks(currentShipment), currentShipment), [currentShipment]);
   const fumigationMapped = useMemo(() => mapTasks(getFumigationTasks(currentShipment), currentShipment), [currentShipment]);
 
+  const getForwarderDisplayName = () => {
+    if (currentShipment.forwarder === 'xpo') return 'XPO Logistics';
+    if (currentShipment.forwarder === 'hmi') return 'HMI Logistics';
+    return currentShipment.manualForwarderName || 'Forwarder';
+  };
+
+  const getFumigationDisplayName = () => {
+    if (currentShipment.fumigation === 'sky-services') return 'Sky Services';
+    if (currentShipment.fumigation === 'sgs') return 'SGS';
+    return currentShipment.manualFumigationName || 'Fumigation';
+  };
+
   return (
     <div className="min-h-screen bg-background pb-20">
       {/* Sticky Header */}
@@ -438,7 +450,7 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
                         progress={calculatePhaseProgress(currentShipment, phase1Mapped)}
                     />
                     <PhaseSection 
-                        title="Phase 2: Clearance & Fumigation" 
+                        title={`Phase 2: Clearance & Fumigation (${getFumigationDisplayName()})`}
                         phaseId="p2" 
                         tasks={fumigationMapped}
                         checklistState={currentShipment.checklist}
@@ -457,7 +469,7 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
                 )}
                 
                 <PhaseSection 
-                    title={`Phase 4: Forwarding (${currentShipment.forwarder.toUpperCase()})`}
+                    title={`Phase 4: Forwarding (${getForwarderDisplayName()})`}
                     phaseId="p4"
                     tasks={forwarderMapped}
                     checklistState={currentShipment.checklist}
