@@ -197,55 +197,6 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
                     <Separator />
 
                     <div className="space-y-3">
-                        <Label>Forwarder</Label>
-                        <RadioGroup 
-                            value={currentShipment.forwarder} 
-                            onValueChange={(val) => updateShipment(currentShipment.id, { forwarder: val as any })}
-                            className="flex flex-col space-y-1"
-                        >
-                            <div className="flex items-center space-x-2">
-                                <RadioGroupItem value="xpo" id="f1" />
-                                <Label htmlFor="f1" className="cursor-pointer font-normal">XPO Logistics</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <RadioGroupItem value="hmi" id="f2" />
-                                <Label htmlFor="f2" className="cursor-pointer font-normal">HMI Logistics</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <RadioGroupItem value="manual" id="f3" />
-                                <Label htmlFor="f3" className="cursor-pointer font-normal">Manual / Other</Label>
-                            </div>
-                        </RadioGroup>
-                        
-                        {currentShipment.forwarder === 'manual' && (
-                            <div className="pt-2 space-y-2 animate-in slide-in-from-top-2 fade-in">
-                                <Input 
-                                    placeholder="Forwarder Name" 
-                                    value={currentShipment.manualForwarderName} 
-                                    onChange={(e) => updateShipment(currentShipment.id, { manualForwarderName: e.target.value })}
-                                    className="h-8 text-sm"
-                                />
-                                <RadioGroup 
-                                    value={currentShipment.manualMethod} 
-                                    onValueChange={(val) => updateShipment(currentShipment.id, { manualMethod: val as any })}
-                                    className="flex items-center gap-4"
-                                >
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="email" id="m1" />
-                                        <Label htmlFor="m1" className="text-xs">Email</Label>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="whatsapp" id="m2" />
-                                        <Label htmlFor="m2" className="text-xs">WhatsApp</Label>
-                                    </div>
-                                </RadioGroup>
-                            </div>
-                        )}
-                    </div>
-
-                    <Separator />
-
-                    <div className="space-y-3">
                         <Label>Fumigation</Label>
                         <RadioGroup 
                             value={currentShipment.fumigation} 
@@ -286,6 +237,55 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="whatsapp" id="fum_m2" />
                                         <Label htmlFor="fum_m2" className="text-xs">WhatsApp</Label>
+                                    </div>
+                                </RadioGroup>
+                            </div>
+                        )}
+                    </div>
+
+                    <Separator />
+
+                    <div className="space-y-3">
+                        <Label>Forwarder</Label>
+                        <RadioGroup 
+                            value={currentShipment.forwarder} 
+                            onValueChange={(val) => updateShipment(currentShipment.id, { forwarder: val as any })}
+                            className="flex flex-col space-y-1"
+                        >
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="xpo" id="f1" />
+                                <Label htmlFor="f1" className="cursor-pointer font-normal">XPO Logistics</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="hmi" id="f2" />
+                                <Label htmlFor="f2" className="cursor-pointer font-normal">HMI Logistics</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="manual" id="f3" />
+                                <Label htmlFor="f3" className="cursor-pointer font-normal">Manual / Other</Label>
+                            </div>
+                        </RadioGroup>
+                        
+                        {currentShipment.forwarder === 'manual' && (
+                            <div className="pt-2 space-y-2 animate-in slide-in-from-top-2 fade-in">
+                                <Input 
+                                    placeholder="Forwarder Name" 
+                                    value={currentShipment.manualForwarderName} 
+                                    onChange={(e) => updateShipment(currentShipment.id, { manualForwarderName: e.target.value })}
+                                    className="h-8 text-sm"
+                                />
+                                <RadioGroup 
+                                    value={currentShipment.manualMethod} 
+                                    onValueChange={(val) => updateShipment(currentShipment.id, { manualMethod: val as any })}
+                                    className="flex items-center gap-4"
+                                >
+                                    <div className="flex items-center space-x-2">
+                                        <RadioGroupItem value="email" id="m1" />
+                                        <Label htmlFor="m1" className="text-xs">Email</Label>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <RadioGroupItem value="whatsapp" id="m2" />
+                                        <Label htmlFor="m2" className="text-xs">WhatsApp</Label>
                                     </div>
                                 </RadioGroup>
                             </div>
