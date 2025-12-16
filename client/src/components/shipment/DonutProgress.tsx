@@ -4,15 +4,23 @@ interface DonutProgressProps {
   percentage: number;
   size?: number;
   strokeWidth?: number;
+  missedCount?: number;
 }
 
-export default function DonutProgress({ percentage, size = 160, strokeWidth = 15 }: DonutProgressProps) {
+export default function DonutProgress({ percentage, size = 160, strokeWidth = 15, missedCount = 0 }: DonutProgressProps) {
+  // Calculate skipped percentage based on missed count
+  // Assume roughly 10% per missed task for visualization (can be adjusted)
+  const skippedPercentage = Math.min(missedCount * 5, 30);
+  const completedPercentage = percentage;
+  const remainingPercentage = Math.max(0, 100 - completedPercentage - skippedPercentage);
+
   const data = [
-    { name: 'Completed', value: percentage },
-    { name: 'Remaining', value: 100 - percentage },
+    { name: 'Completed', value: completedPercentage },
+    { name: 'Skipped', value: skippedPercentage },
+    { name: 'Remaining', value: remainingPercentage },
   ];
 
-  const COLORS = ['hsl(var(--accent))', 'hsl(var(--muted))'];
+  const COLORS = ['hsl(var(--accent))', 'hsl(var(--warning))', 'hsl(var(--muted))'];
 
   return (
     <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
@@ -38,6 +46,9 @@ export default function DonutProgress({ percentage, size = 160, strokeWidth = 15
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="text-3xl font-bold text-primary">{percentage}%</span>
         <span className="text-xs text-muted-foreground uppercase font-medium mt-1">Complete</span>
+        {missedCount > 0 && (
+          <span className="text-xs text-warning font-medium mt-2">⚠ {missedCount} Skipped</span>
+        )}
       </div>
     </div>
   );

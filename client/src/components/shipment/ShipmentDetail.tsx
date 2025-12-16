@@ -178,7 +178,7 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
             <div className="md:col-span-1 space-y-6">
                 {/* Donut Chart Widget */}
                 <div className="bg-card p-6 rounded-lg border shadow-sm flex flex-col items-center justify-center">
-                    <DonutProgress percentage={progress} />
+                    <DonutProgress percentage={progress} missedCount={incompleteTasks.length} />
                 </div>
 
                 {/* Missed Tasks Widget */}
