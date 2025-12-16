@@ -94,6 +94,13 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
   const progress = calculateProgress(currentShipment);
   const incompleteTasks = useMemo(() => getIncompleteTasks(currentShipment), [currentShipment]);
 
+  const handleScrollToMissed = () => {
+    const phasesSection = document.getElementById('phases-section');
+    if (phasesSection) {
+      phasesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   // Helper to map tasks with dynamic email content
   const mapTasks = (tasks: TaskDefinition[], data: ShipmentData) => {
     return tasks.map(t => ({
@@ -177,13 +184,13 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
             {/* Widgets Column */}
             <div className="md:col-span-1 space-y-6">
                 {/* Donut Chart Widget */}
-                <div className="bg-card p-6 rounded-lg border shadow-sm flex flex-col items-center justify-center">
+                <div className="bg-card p-6 rounded-lg border shadow-sm flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition-shadow" onClick={handleScrollToMissed}>
                     <DonutProgress percentage={progress} missedCount={incompleteTasks.length} />
                 </div>
 
                 {/* Missed Tasks Widget */}
                 {incompleteTasks.length > 0 && (
-                  <div className="bg-card p-4 rounded-lg border shadow-sm">
+                  <div className="bg-card p-4 rounded-lg border shadow-sm cursor-pointer hover:shadow-md hover:border-warning/50 transition-all" onClick={handleScrollToMissed}>
                     <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider mb-3">Missed Tasks ({incompleteTasks.length})</h3>
                     <div className="space-y-2 max-h-48 overflow-y-auto">
                       {incompleteTasks.map((task) => (
@@ -192,6 +199,7 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
                         </div>
                       ))}
                     </div>
+                    <div className="text-xs text-muted-foreground mt-3 text-center">Click to view in checklist</div>
                   </div>
                 )}
 
@@ -474,7 +482,7 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
                 </div>
 
                 {/* Phases */}
-                <div className="space-y-6">
+                <div className="space-y-6" id="phases-section">
                 {currentShipment.shipmentType === 'with-inspection' && (
                     <>
                     <PhaseSection 
