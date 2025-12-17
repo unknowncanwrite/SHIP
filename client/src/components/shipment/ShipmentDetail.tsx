@@ -280,7 +280,7 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
 
       <main className="container mx-auto px-4 py-6 max-w-5xl space-y-8">
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             {/* Left Widgets Column */}
             <div className="md:col-span-1 space-y-6">
                 {/* Donut Chart Widget */}
@@ -458,7 +458,7 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
             </div>
 
             {/* Main Content Column */}
-            <div className="md:col-span-2 space-y-6">
+            <div className="md:col-span-3 space-y-6">
                 {/* Input Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-card p-6 rounded-lg border border-l-4 border-l-primary shadow-sm">
                 <h2 className="col-span-full text-lg font-bold text-primary mb-2">Shipment Details</h2>
