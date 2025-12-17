@@ -38,7 +38,10 @@ const useDebouncedSave = (value: string, delay: number, onSave: (val: string) =>
 };
 
 // Sub-component that safely receives non-null shipment data
-function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentData }) {
+function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShipment: ShipmentData }) {
+  // Ensure currentShipment always has documents
+  const currentShipment = { ...inputShipment, documents: inputShipment.documents || [] };
+  
   const [_, setLocation] = useLocation();
   const { updateShipment, deleteShipment, toggleChecklist, isSaving, addCustomTask, deleteCustomTask, toggleCustomTask, addDocument, deleteDocument } = useShipmentStore();
   const { toast } = useToast();
@@ -642,8 +645,8 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
                     </div>
                     
                     <div className="p-4 space-y-3">
-                        {currentShipment.documents.length > 0 ? (
-                            currentShipment.documents.map((doc) => (
+                        {(currentShipment.documents || []).length > 0 ? (
+                            (currentShipment.documents || []).map((doc) => (
                                 <div key={doc.id} className="flex items-center justify-between p-3 bg-muted/20 rounded-md border">
                                     <div className="flex items-center gap-3">
                                         <Download className="h-4 w-4 text-accent" />

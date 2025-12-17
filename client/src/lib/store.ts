@@ -35,6 +35,7 @@ const MOCK_SHIPMENTS: ShipmentData[] = [
       eta: '2025-06-15',
       inspectionDate: '2025-05-20',
     },
+    documents: [],
     checklist: {
       'p1_docs': true,
       'p1_mail': true,
@@ -52,6 +53,7 @@ const MOCK_SHIPMENTS: ShipmentData[] = [
       eta: '2025-06-20',
       inspectionDate: '2025-05-25',
     },
+    documents: [],
      checklist: {
       'p1_docs': true,
     }
@@ -80,7 +82,10 @@ export const useShipmentStore = create<ShipmentStore>()(
       },
 
       loadShipment: (id) => {
-        const shipment = get().shipments.find((s) => s.id === id);
+        let shipment = get().shipments.find((s) => s.id === id);
+        if (shipment && !shipment.documents) {
+          shipment = { ...shipment, documents: [] };
+        }
         set({ currentShipment: shipment || null });
       },
 
@@ -90,14 +95,27 @@ export const useShipmentStore = create<ShipmentStore>()(
         // Simulate network delay for "Saving..." indicator
         setTimeout(() => {
           set((state) => {
-            const updatedShipments = state.shipments.map((s) =>
-              s.id === id ? { ...s, ...data, lastUpdated: Date.now() } : s
-            );
+            const updatedShipments = state.shipments.map((s) => {
+              if (s.id === id) {
+                const updated = { ...s, ...data, lastUpdated: Date.now() };
+                // Ensure documents always exists
+                if (!updated.documents) {
+                  updated.documents = [];
+                }
+                return updated;
+              }
+              return s;
+            });
             
             // Update current shipment if it's the one being edited
-            const updatedCurrent = state.currentShipment?.id === id 
+            let updatedCurrent = state.currentShipment?.id === id 
               ? { ...state.currentShipment, ...data, lastUpdated: Date.now() } 
               : state.currentShipment;
+            
+            // Ensure documents always exists in current shipment
+            if (updatedCurrent && !updatedCurrent.documents) {
+              updatedCurrent = { ...updatedCurrent, documents: [] };
+            }
 
             return {
               shipments: updatedShipments,
@@ -116,8 +134,13 @@ export const useShipmentStore = create<ShipmentStore>()(
       },
 
       toggleChecklist: (id, key) => {
-        const shipment = get().shipments.find((s) => s.id === id);
+        let shipment = get().shipments.find((s) => s.id === id);
         if (!shipment) return;
+        
+        // Ensure documents exists
+        if (!shipment.documents) {
+          shipment = { ...shipment, documents: [] };
+        }
 
         const newChecklist = { ...shipment.checklist, [key]: !shipment.checklist[key] };
         get().updateShipment(id, { checklist: newChecklist });
