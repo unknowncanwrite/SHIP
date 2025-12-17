@@ -49,12 +49,16 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
   const [details, setDetails] = useState(currentShipment.details);
   const [commercial, setCommercial] = useState(currentShipment.commercial);
   const [actual, setActual] = useState(currentShipment.actual);
+  const [manualFumigationName, setManualFumigationName] = useState(currentShipment.manualFumigationName);
+  const [manualForwarderName, setManualForwarderName] = useState(currentShipment.manualForwarderName);
   
   // Sync when shipment changes (on load or when switching shipments)
   useEffect(() => {
     setDetails(currentShipment.details);
     setCommercial(currentShipment.commercial);
     setActual(currentShipment.actual);
+    setManualFumigationName(currentShipment.manualFumigationName);
+    setManualForwarderName(currentShipment.manualForwarderName);
   }, [currentShipment.id]);
   
   // Debounced saves for all sections
@@ -71,6 +75,18 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
   useDebouncedSave(JSON.stringify(details), 800, (val) => saveFn('details', JSON.parse(val)));
   useDebouncedSave(JSON.stringify(commercial), 800, (val) => saveFn('commercial', JSON.parse(val)));
   useDebouncedSave(JSON.stringify(actual), 800, (val) => saveFn('actual', JSON.parse(val)));
+  
+  useDebouncedSave(manualFumigationName, 800, (val) => {
+    if (val !== currentShipment.manualFumigationName) {
+      updateShipment(currentShipment.id, { manualFumigationName: val });
+    }
+  });
+  
+  useDebouncedSave(manualForwarderName, 800, (val) => {
+    if (val !== currentShipment.manualForwarderName) {
+      updateShipment(currentShipment.id, { manualForwarderName: val });
+    }
+  });
   
   const handleDetailChange = (field: string, value: any) => {
     setDetails(prev => ({ ...prev, [field]: value }));
@@ -474,32 +490,33 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
                     <Label htmlFor="booking" className="text-xs text-muted-foreground uppercase font-bold">Booking No.</Label>
                     <Input id="booking" value={details.booking} onChange={(e) => handleDetailChange('booking', e.target.value)} className="font-mono uppercase" />
                 </div>
+
+                {/* Commercial Details - inline */}
+                <div className="col-span-full pt-4 border-t">
+                    <h3 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Commercial Details</h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div className="space-y-1">
+                            <Label className="text-xs text-muted-foreground uppercase font-bold">Invoice #</Label>
+                            <Input className="h-8 text-sm" value={commercial.invoice} onChange={(e) => handleCommercialChange('invoice', e.target.value)} />
+                        </div>
+                        <div className="space-y-1">
+                            <Label className="text-xs text-muted-foreground uppercase font-bold">Quantity</Label>
+                            <Input className="h-8 text-sm" value={commercial.qty} onChange={(e) => handleCommercialChange('qty', e.target.value)} />
+                        </div>
+                        <div className="space-y-1">
+                            <Label className="text-xs text-muted-foreground uppercase font-bold">Net Weight</Label>
+                            <Input className="h-8 text-sm" value={commercial.netWeight} onChange={(e) => handleCommercialChange('netWeight', e.target.value)} />
+                        </div>
+                        <div className="space-y-1">
+                            <Label className="text-xs text-muted-foreground uppercase font-bold">Gross Weight</Label>
+                            <Input className="h-8 text-sm" value={commercial.grossWeight} onChange={(e) => handleCommercialChange('grossWeight', e.target.value)} />
+                        </div>
+                    </div>
+                </div>
                 </div>
 
                 {/* Reconciliation */}
                 <div className="space-y-4">
-                    {/* Commercial */}
-                    <div className="bg-muted/30 p-5 rounded-lg border">
-                        <h3 className="font-bold text-primary mb-3 text-sm uppercase tracking-wide">Commercial Details</h3>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="space-y-1">
-                            <Label className="text-xs text-muted-foreground">Invoice #</Label>
-                            <Input className="h-8" value={commercial.invoice} onChange={(e) => handleCommercialChange('invoice', e.target.value)} />
-                        </div>
-                        <div className="space-y-1">
-                            <Label className="text-xs text-muted-foreground">Quantity</Label>
-                            <Input className="h-8" value={commercial.qty} onChange={(e) => handleCommercialChange('qty', e.target.value)} />
-                        </div>
-                        <div className="space-y-1">
-                            <Label className="text-xs text-muted-foreground">Net Weight</Label>
-                            <Input className="h-8" value={commercial.netWeight} onChange={(e) => handleCommercialChange('netWeight', e.target.value)} />
-                        </div>
-                        <div className="space-y-1">
-                            <Label className="text-xs text-muted-foreground">Gross Weight</Label>
-                            <Input className="h-8" value={commercial.grossWeight} onChange={(e) => handleCommercialChange('grossWeight', e.target.value)} />
-                        </div>
-                        </div>
-                    </div>
 
                     {/* Actual */}
                     <div className="bg-accent/5 p-5 rounded-lg border border-accent/20">
