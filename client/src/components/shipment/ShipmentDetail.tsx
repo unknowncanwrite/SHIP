@@ -173,6 +173,7 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
       ...t,
       emailSubject: typeof t.emailSubject === 'function' ? t.emailSubject(data) : t.emailSubject,
       emailBody: typeof t.emailBody === 'function' ? t.emailBody(data) : t.emailBody,
+      emailTo: typeof t.emailTo === 'function' ? t.emailTo(data) : t.emailTo,
     }));
   };
 
@@ -569,7 +570,7 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
                     </div>
                     <div id="phase-2">
                       <PhaseSection 
-                          title={`Phase 2: Clearance & Fumigation (${getFumigationDisplayName()})`}
+                          title={`Phase 2: Fumigation (${getFumigationDisplayName()})`}
                           phaseId="p2" 
                           tasks={fumigationMapped}
                           checklistState={currentShipment.checklist}
