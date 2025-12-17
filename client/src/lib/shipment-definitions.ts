@@ -49,6 +49,14 @@ export const PHASE_2_TASKS: TaskDefinition[] = [
 ];
 
 export const PHASE_3_TASKS: TaskDefinition[] = [
+  { 
+    id: 'p3a_sgs_docs', 
+    label: 'Send Shipment Documents to SGS for COC Draft', 
+    hasEmail: true,
+    needsAttachmentCheck: true,
+    emailSubject: (d) => `Shipment Documents for COC Draft - ${d.id}`, 
+    emailBody: () => `Please find attached shipment documents. Kindly prepare the COC draft at your earliest convenience.` 
+  },
   { id: 'p3b_draft', label: 'Receive & Verify Draft' },
   { id: 'p3b_pay', label: 'Process SGS Payment' },
   { 
