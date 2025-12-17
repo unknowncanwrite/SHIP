@@ -32,7 +32,7 @@ export const PHASE_1_TASKS: TaskDefinition[] = [
 Please see attached Documents, kindly arrange inspection for ${formatDate(d.details.inspectionDate)}.
 Attached - RFC, declaration, IDF & Commercial Invoice.`
   },
-  { id: 'p1_fumigation', label: 'Book Fumigation (WhatsApp)', isWhatsApp: true, needsAttachmentCheck: true },
+  { id: 'p1_fumigation', label: 'Book Fumigation (WhatsApp)', isWhatsApp: true, needsAttachmentCheck: true, emailTo: 'HASSAN SKY FUMIGATION (03332990665)' },
 ];
 
 export const PHASE_2_TASKS: TaskDefinition[] = [
