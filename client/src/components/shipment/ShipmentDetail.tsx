@@ -280,8 +280,8 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
 
       <main className="container mx-auto px-4 py-6 max-w-5xl space-y-8">
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Widgets Column */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {/* Left Widgets Column */}
             <div className="md:col-span-1 space-y-6">
                 {/* Donut Chart Widget */}
                 <div className="bg-card p-6 rounded-lg border shadow-sm flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition-shadow" onClick={() => handleScrollToMissed()}>
@@ -331,64 +331,6 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
                             <div className="font-medium text-foreground">Inspection</div>
                             <div className="text-muted-foreground mt-1">SGS</div>
                             <div className="text-accent font-mono">Fazila.Shaikh@sgs.com</div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Documents Section - Moved to Sidebar */}
-                <div className="bg-card p-4 rounded-lg border shadow-sm">
-                    <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider mb-3">Shipment Documents</h3>
-                    
-                    <div className="space-y-2">
-                        {(currentShipment.documents || []).length > 0 ? (
-                            (currentShipment.documents || []).map((doc) => (
-                                <div key={doc.id} className="flex items-center justify-between p-2 bg-muted/20 rounded-md border text-xs">
-                                    <div className="flex items-center gap-2 min-w-0">
-                                        <Download className="h-3 w-3 text-accent flex-shrink-0" />
-                                        <div className="min-w-0">
-                                            <div className="font-medium truncate">{doc.name}</div>
-                                            <div className="text-muted-foreground text-xs">{format(new Date(doc.createdAt), 'MMM d, yyyy')}</div>
-                                        </div>
-                                    </div>
-                                    <Button 
-                                        variant="ghost" 
-                                        size="icon" 
-                                        className="h-6 w-6 text-destructive flex-shrink-0"
-                                        onClick={() => {
-                                          deleteDocument(currentShipment.id, doc.id);
-                                          toast({
-                                            title: "Document Deleted",
-                                            description: `${doc.name} has been removed.`,
-                                          });
-                                        }}
-                                    >
-                                        <X className="h-3 w-3" />
-                                    </Button>
-                                </div>
-                            ))
-                        ) : (
-                            <div className="text-center py-3 text-muted-foreground text-xs italic">
-                                No documents yet.
-                            </div>
-                        )}
-
-                        <div className="pt-2 border-t space-y-1">
-                            <Input 
-                                placeholder="Doc name (optional)" 
-                                value={newDocName}
-                                onChange={(e) => setNewDocName(e.target.value)}
-                                className="h-7 text-xs"
-                            />
-                            <label className="flex items-center justify-center gap-1 p-2 border-2 border-dashed rounded-md cursor-pointer hover:bg-muted/30 transition-colors">
-                                <Plus className="h-3 w-3" />
-                                <span className="text-xs font-medium">Upload PDF</span>
-                                <input 
-                                    type="file" 
-                                    accept=".pdf" 
-                                    onChange={handleFileUpload}
-                                    className="hidden"
-                                />
-                            </label>
                         </div>
                     </div>
                 </div>
@@ -512,20 +454,6 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
                             </div>
                         )}
                     </div>
-                </div>
-
-                {/* Print Actions */}
-                <div className="bg-card p-4 rounded-lg border shadow-sm space-y-2">
-                     <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider mb-3">Documents</h3>
-                     <Button variant="outline" size="sm" className="w-full justify-start gap-2" onClick={() => handlePrint('declaration')}>
-                        <Printer className="h-4 w-4" /> Print Declaration
-                    </Button>
-                    <Button variant="outline" size="sm" className="w-full justify-start gap-2" onClick={() => handlePrint('undertaking')}>
-                        <Printer className="h-4 w-4" /> Print Undertaking
-                    </Button>
-                    <Button variant="outline" size="sm" className="w-full justify-start gap-2" onClick={() => handlePrint('shoes')}>
-                        <Printer className="h-4 w-4" /> Print Shoes Undertaking
-                    </Button>
                 </div>
             </div>
 
@@ -768,6 +696,81 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
                     </div>
                 </div>
 
+                </div>
+            </div>
+
+            {/* Right Sidebar Column */}
+            <div className="md:col-span-1 space-y-6">
+                {/* Shipment Documents */}
+                <div className="bg-card p-4 rounded-lg border shadow-sm">
+                    <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider mb-3">Shipment Documents</h3>
+                    
+                    <div className="space-y-2">
+                        {(currentShipment.documents || []).length > 0 ? (
+                            (currentShipment.documents || []).map((doc) => (
+                                <div key={doc.id} className="flex items-center justify-between p-2 bg-muted/20 rounded-md border text-xs">
+                                    <div className="flex items-center gap-2 min-w-0">
+                                        <Download className="h-3 w-3 text-accent flex-shrink-0" />
+                                        <div className="min-w-0">
+                                            <div className="font-medium truncate">{doc.name}</div>
+                                            <div className="text-muted-foreground text-xs">{format(new Date(doc.createdAt), 'MMM d, yyyy')}</div>
+                                        </div>
+                                    </div>
+                                    <Button 
+                                        variant="ghost" 
+                                        size="icon" 
+                                        className="h-6 w-6 text-destructive flex-shrink-0"
+                                        onClick={() => {
+                                          deleteDocument(currentShipment.id, doc.id);
+                                          toast({
+                                            title: "Document Deleted",
+                                            description: `${doc.name} has been removed.`,
+                                          });
+                                        }}
+                                    >
+                                        <X className="h-3 w-3" />
+                                    </Button>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="text-center py-3 text-muted-foreground text-xs italic">
+                                No documents yet.
+                            </div>
+                        )}
+
+                        <div className="pt-2 border-t space-y-1">
+                            <Input 
+                                placeholder="Doc name (optional)" 
+                                value={newDocName}
+                                onChange={(e) => setNewDocName(e.target.value)}
+                                className="h-7 text-xs"
+                            />
+                            <label className="flex items-center justify-center gap-1 p-2 border-2 border-dashed rounded-md cursor-pointer hover:bg-muted/30 transition-colors">
+                                <Plus className="h-3 w-3" />
+                                <span className="text-xs font-medium">Upload PDF</span>
+                                <input 
+                                    type="file" 
+                                    accept=".pdf" 
+                                    onChange={handleFileUpload}
+                                    className="hidden"
+                                />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Print Actions */}
+                <div className="bg-card p-4 rounded-lg border shadow-sm space-y-2">
+                     <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider mb-3">Print Templates</h3>
+                     <Button variant="outline" size="sm" className="w-full justify-start gap-2" onClick={() => handlePrint('declaration')}>
+                        <Printer className="h-4 w-4" /> Declaration
+                    </Button>
+                    <Button variant="outline" size="sm" className="w-full justify-start gap-2" onClick={() => handlePrint('undertaking')}>
+                        <Printer className="h-4 w-4" /> Undertaking
+                    </Button>
+                    <Button variant="outline" size="sm" className="w-full justify-start gap-2" onClick={() => handlePrint('shoes')}>
+                        <Printer className="h-4 w-4" /> Shoes Undertaking
+                    </Button>
                 </div>
             </div>
         </div>
