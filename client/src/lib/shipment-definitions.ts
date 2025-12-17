@@ -100,8 +100,7 @@ export const getFumigationTasks = (data: ShipmentData): TaskDefinition[] => {
          needsAttachmentCheck: true,
          emailSubject: (d) => `Fumigation Request - ${d.id}`, 
          emailBody: () => `Please find attached the required documents for fumigation.` 
-       },
-       { id: 'p2_sky_confirm', label: 'Sky Services: Confirm Fumigation Date' }
+       }
     ];
   } else if (data.fumigation === 'sgs') {
     return [
