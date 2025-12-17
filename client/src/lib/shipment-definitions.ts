@@ -26,7 +26,7 @@ export const PHASE_1_TASKS: TaskDefinition[] = [
     needsAttachmentCheck: true,
     emailTo: 'Fazila.Shaikh@sgs.com',
     emailCC: 'Saqib.Qadeer@sgs.com, export@amrags.com, Muhammad.ShoaibSiddiqui@sgs.com, Syed.Mahboob@sgs.com, imp-exp@amrags.com',
-    emailSubject: (d) => `IDEAS RECYCLING (PVT) LTD, ${d.details.idf} - ${d.commercial.invoice} - ${d.details.consignee} - INSPECTION REQ - ${formatDate(d.details.inspectionDate)}`,
+    emailSubject: (d) => `IDEAS RECYCLING (PVT) LTD, ${d.commercial.invoice} - ${d.details.idf} - ${d.details.consignee} - INSPECTION REQ - ${formatDate(d.details.inspectionDate)}`,
     emailBody: (d) => `Dear Saqib/Fazila,
 
 Please see attached Documents, kindly arrange inspection for ${formatDate(d.details.inspectionDate)}.
