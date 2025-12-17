@@ -85,7 +85,22 @@ export default function PhaseSection({
                     {task.label}
                   </Label>
                   {isMissed && <div className="text-xs text-warning font-medium">⚠ Skipped</div>}
-                  {task.needsAttachmentCheck && <div className="text-xs text-info font-medium">✓ Check attachments before sending</div>}
+                  {task.needsAttachmentCheck && (
+                    <div className="flex items-center gap-2 pt-1">
+                      <Checkbox 
+                        id={`attachmentCheck_${task.id}`}
+                        checked={checklistState[`attachmentCheck_${task.id}`] || false}
+                        onCheckedChange={() => onToggle(`attachmentCheck_${task.id}`)}
+                        className="h-4 w-4"
+                      />
+                      <Label 
+                        htmlFor={`attachmentCheck_${task.id}`}
+                        className="text-xs text-info font-medium cursor-pointer leading-none"
+                      >
+                        ✓ Attachments verified before sending
+                      </Label>
+                    </div>
+                  )}
                 </div>
               </div>
               
