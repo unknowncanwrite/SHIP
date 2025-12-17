@@ -17,7 +17,7 @@ import { useTheme } from 'next-themes';
 import { printDeclaration, printUndertaking, printShoesUndertaking } from '@/lib/PrintTemplates';
 import { format } from 'date-fns';
 import { calculateProgress, calculatePhaseProgress, getIncompleteTasks } from '@/lib/shipment-utils';
-import { PHASE_1_TASKS, PHASE_2_TASKS, PHASE_3_TASKS, getPhase1Tasks, getForwarderTasks, getFumigationTasks, TaskDefinition } from '@/lib/shipment-definitions';
+import { PHASE_1_TASKS, PHASE_2_TASKS, PHASE_3_TASKS, getForwarderTasks, getFumigationTasks, TaskDefinition } from '@/lib/shipment-definitions';
 import { ShipmentData } from '@/types/shipment';
 
 // Debounce hook for text input - fixed to prevent hook dependency issues
@@ -210,7 +210,7 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
     }));
   };
 
-  const phase1Mapped = useMemo(() => mapTasks(getPhase1Tasks(currentShipment), currentShipment), [currentShipment]);
+  const phase1Mapped = useMemo(() => mapTasks(PHASE_1_TASKS, currentShipment), [currentShipment]);
   const phase2Mapped = useMemo(() => mapTasks(PHASE_2_TASKS, currentShipment), [currentShipment]);
   const phase3Mapped = useMemo(() => mapTasks(PHASE_3_TASKS, currentShipment), [currentShipment]);
   const forwarderMapped = useMemo(() => mapTasks(getForwarderTasks(currentShipment), currentShipment), [currentShipment]);
