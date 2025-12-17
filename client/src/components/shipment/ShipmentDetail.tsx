@@ -569,17 +569,22 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
                           missedTaskIds={incompleteTasks.map(t => t.id)}
                       />
                     </div>
-                    <div id="phase-2">
-                      <PhaseSection 
-                          title={`Phase 2: Fumigation (${getFumigationDisplayName()})`}
-                          phaseId="p2" 
-                          tasks={fumigationMapped}
-                          checklistState={currentShipment.checklist}
-                          onToggle={(key) => toggleChecklist(currentShipment.id, key)}
-                          progress={calculatePhaseProgress(currentShipment, fumigationMapped)}
-                          missedTaskIds={incompleteTasks.map(t => t.id)}
-                      />
-                    </div>
+                    </>
+                )}
+                
+                <div id="phase-2">
+                  <PhaseSection 
+                      title={`Phase 2: Fumigation (${getFumigationDisplayName()})`}
+                      phaseId="p2" 
+                      tasks={fumigationMapped}
+                      checklistState={currentShipment.checklist}
+                      onToggle={(key) => toggleChecklist(currentShipment.id, key)}
+                      progress={calculatePhaseProgress(currentShipment, fumigationMapped)}
+                      missedTaskIds={incompleteTasks.map(t => t.id)}
+                  />
+                </div>
+                
+                {currentShipment.shipmentType === 'with-inspection' && (
                     <div id="phase-3">
                       <PhaseSection 
                           title="Phase 3: COC Finalization" 
@@ -591,7 +596,6 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
                           missedTaskIds={incompleteTasks.map(t => t.id)}
                       />
                     </div>
-                    </>
                 )}
                 
                 <div id="phase-4">
