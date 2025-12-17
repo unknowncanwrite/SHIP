@@ -6,17 +6,20 @@ export interface TaskDefinition {
   hasEmail?: boolean;
   emailSubject?: string | ((data: ShipmentData) => string);
   emailBody?: string | ((data: ShipmentData) => string);
+  isWhatsApp?: boolean;
+  needsAttachmentCheck?: boolean;
 }
 
 export const PHASE_1_TASKS: TaskDefinition[] = [
   { 
     id: 'p1_docs', 
     label: 'Prepare Inspection Documents & send to SGS', 
-    hasEmail: true, 
+    hasEmail: true,
+    needsAttachmentCheck: true,
     emailSubject: (d) => `Shipment ${d.id} - Docs`, 
     emailBody: (d) => `Please process the attached documents for shipment ${d.id}.` 
   },
-  { id: 'p1_fumigation', label: 'Book Fumigation (WhatsApp)' },
+  { id: 'p1_fumigation', label: 'Book Fumigation (WhatsApp)', isWhatsApp: true, needsAttachmentCheck: true },
   { id: 'p1_attachments', label: 'Check Attachments' },
 ];
 
@@ -24,7 +27,8 @@ export const PHASE_2_TASKS: TaskDefinition[] = [
   { 
     id: 'p2_mail', 
     label: 'Send Fumigation Docs', 
-    hasEmail: true, 
+    hasEmail: true,
+    needsAttachmentCheck: true,
     emailSubject: (d) => `INV ${d.commercial.invoice || d.id} Fumigation Request`, 
     emailBody: () => `Please find Commercial Invoice & Packing List attached.` 
   },
@@ -38,7 +42,8 @@ export const PHASE_3_TASKS: TaskDefinition[] = [
   { 
     id: 'p3b_confirm', 
     label: 'Request Final COC', 
-    hasEmail: true, 
+    hasEmail: true,
+    needsAttachmentCheck: true,
     emailSubject: (d) => `COC Finalization - ${d.id}`, 
     emailBody: () => `COC Draft Confirmed. Payment attached. Please issue Final.` 
   },
@@ -52,20 +57,22 @@ export const getForwarderTasks = (data: ShipmentData): TaskDefinition[] => {
        { 
          id: 'p4_xpo_docs', 
          label: 'XPO: Send Final Docs', 
-         hasEmail: true, 
+         hasEmail: true,
+         needsAttachmentCheck: true,
          emailSubject: (d) => `Final Docs - ${d.id}`, 
          emailBody: () => `Please find attached final documents.` 
        }
     ];
   } else if (data.forwarder === 'hmi') {
     return [
-       { id: 'p4_hmi_whatsapp', label: 'HMI: Send WhatsApp Confirmation' },
+       { id: 'p4_hmi_whatsapp', label: 'HMI: Send WhatsApp Confirmation', isWhatsApp: true, needsAttachmentCheck: true },
        { id: 'p4_hmi_loading', label: 'HMI: Confirm Loading' }
     ];
   } else {
     const forwarderName = data.manualForwarderName || 'Forwarder';
+    const isEmail = data.manualMethod === 'email';
     return [
-       { id: 'p4_manual_contact', label: `${forwarderName}: Contact via ${data.manualMethod}` },
+       { id: 'p4_manual_contact', label: `${forwarderName}: Contact via ${data.manualMethod}`, needsAttachmentCheck: true },
        { id: 'p4_manual_docs', label: `${forwarderName}: Send Documents` }
     ];
   }
@@ -78,7 +85,8 @@ export const getFumigationTasks = (data: ShipmentData): TaskDefinition[] => {
        { 
          id: 'p2_sky_docs', 
          label: 'Sky Services: Send Required Docs', 
-         hasEmail: true, 
+         hasEmail: true,
+         needsAttachmentCheck: true,
          emailSubject: (d) => `Fumigation Request - ${d.id}`, 
          emailBody: () => `Please find attached the required documents for fumigation.` 
        },
@@ -90,7 +98,8 @@ export const getFumigationTasks = (data: ShipmentData): TaskDefinition[] => {
        { 
          id: 'p2_sgs_docs', 
          label: 'SGS: Submit Documentation', 
-         hasEmail: true, 
+         hasEmail: true,
+         needsAttachmentCheck: true,
          emailSubject: (d) => `SGS Fumigation - ${d.id}`, 
          emailBody: () => `Please find attached the required documents for SGS fumigation.` 
        },
@@ -99,7 +108,7 @@ export const getFumigationTasks = (data: ShipmentData): TaskDefinition[] => {
   } else {
     const providerName = data.manualFumigationName || 'Fumigation Provider';
     return [
-       { id: 'p2_manual_fum_contact', label: `${providerName}: Contact via ${data.manualFumigationMethod}` },
+       { id: 'p2_manual_fum_contact', label: `${providerName}: Contact via ${data.manualFumigationMethod}`, needsAttachmentCheck: true },
        { id: 'p2_manual_fum_docs', label: `${providerName}: Send Fumigation Documents` },
        { id: 'p2_manual_fum_confirm', label: `${providerName}: Confirm Fumigation Completion` }
     ];

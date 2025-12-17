@@ -13,6 +13,8 @@ interface Task {
   hasEmail?: boolean;
   emailSubject?: string;
   emailBody?: string;
+  isWhatsApp?: boolean;
+  needsAttachmentCheck?: boolean;
 }
 
 interface PhaseSectionProps {
@@ -83,6 +85,7 @@ export default function PhaseSection({
                     {task.label}
                   </Label>
                   {isMissed && <div className="text-xs text-warning font-medium">⚠ Skipped</div>}
+                  {task.needsAttachmentCheck && <div className="text-xs text-info font-medium">✓ Check attachments before sending</div>}
                 </div>
               </div>
               
