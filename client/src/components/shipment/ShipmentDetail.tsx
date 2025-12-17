@@ -174,6 +174,7 @@ function ShipmentDetailContent({ currentShipment }: { currentShipment: ShipmentD
       emailSubject: typeof t.emailSubject === 'function' ? t.emailSubject(data) : t.emailSubject,
       emailBody: typeof t.emailBody === 'function' ? t.emailBody(data) : t.emailBody,
       emailTo: typeof t.emailTo === 'function' ? t.emailTo(data) : t.emailTo,
+      emailCC: typeof t.emailCC === 'function' ? t.emailCC(data) : t.emailCC,
     }));
   };
 

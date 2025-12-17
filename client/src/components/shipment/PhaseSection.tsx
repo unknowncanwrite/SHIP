@@ -99,7 +99,7 @@ export default function PhaseSection({
                         htmlFor={`attachmentCheck_${task.id}`}
                         className="text-xs text-info font-medium cursor-pointer leading-none"
                       >
-                        ✓ Attachments verified before sending
+                        ✓ Attachments verified before sending (Check: RFC, declaration, IDF & Commercial Invoice)
                       </Label>
                     </div>
                   )}
