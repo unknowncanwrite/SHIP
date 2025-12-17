@@ -33,7 +33,6 @@ Please see attached Documents, kindly arrange inspection for ${formatDate(d.deta
 Attached - RFC, declaration, IDF & Commercial Invoice.`
   },
   { id: 'p1_fumigation', label: 'Book Fumigation (WhatsApp)', isWhatsApp: true, needsAttachmentCheck: true },
-  { id: 'p1_attachments', label: 'Check Attachments' },
 ];
 
 export const PHASE_2_TASKS: TaskDefinition[] = [
