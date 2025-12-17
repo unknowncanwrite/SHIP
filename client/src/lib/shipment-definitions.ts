@@ -16,8 +16,8 @@ export const PHASE_1_TASKS: TaskDefinition[] = [
     emailSubject: (d) => `Shipment ${d.id} - Docs`, 
     emailBody: (d) => `Please process the attached documents for shipment ${d.id}.` 
   },
-  { id: 'p1_attachments', label: 'Check Attachments' },
   { id: 'p1_fumigation', label: 'Book Fumigation (WhatsApp)' },
+  { id: 'p1_attachments', label: 'Check Attachments' },
 ];
 
 export const PHASE_2_TASKS: TaskDefinition[] = [
