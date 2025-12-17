@@ -9,7 +9,7 @@ export interface TaskDefinition {
 }
 
 export const PHASE_1_TASKS: TaskDefinition[] = [
-  { id: 'p1_docs', label: 'Receive Documents from Client' },
+  { id: 'p1_docs', label: 'Prepare Inspection Documents & send to SGS' },
   { 
     id: 'p1_mail', 
     label: 'Send Mail to Forwarder', 
