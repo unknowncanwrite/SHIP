@@ -6,6 +6,8 @@ export interface TaskDefinition {
   hasEmail?: boolean;
   emailSubject?: string | ((data: ShipmentData) => string);
   emailBody?: string | ((data: ShipmentData) => string);
+  emailTo?: string | ((data: ShipmentData) => string);
+  emailCC?: string | ((data: ShipmentData) => string);
   isWhatsApp?: boolean;
   needsAttachmentCheck?: boolean;
 }
@@ -16,8 +18,16 @@ export const PHASE_1_TASKS: TaskDefinition[] = [
     label: 'Prepare Inspection Documents & send to SGS', 
     hasEmail: true,
     needsAttachmentCheck: true,
-    emailSubject: (d) => `Shipment ${d.id} - Docs`, 
-    emailBody: (d) => `Please process the attached documents for shipment ${d.id}.` 
+    emailTo: 'Fazila.Shaikh@sgs.com',
+    emailCC: 'Saqib.Qadeer@sgs.com, export@amrags.com, Muhammad.ShoaibSiddiqui@sgs.com, Syed.Mahboob@sgs.com, imp-exp@amrags.com',
+    emailSubject: (d) => `IDEAS RECYCLING (PVT) LTD, ${d.details.idf} - ${d.details.proforma} - ${d.details.consignee} - INSPECTION REQ - ${d.details.inspectionDate}`,
+    emailBody: (d) => `To: Fazila.Shaikh@sgs.com
+CC: Saqib.Qadeer@sgs.com, export@amrags.com, Muhammad.ShoaibSiddiqui@sgs.com, Syed.Mahboob@sgs.com, imp-exp@amrags.com
+
+Dear Saqib/Fazila,
+
+Please see attached Documents, kindly arrange inspection for ${d.details.inspectionDate}.
+Attached - RFC, declaration, IDF & Proforma Invoice.`
   },
   { id: 'p1_fumigation', label: 'Book Fumigation (WhatsApp)', isWhatsApp: true, needsAttachmentCheck: true },
   { id: 'p1_attachments', label: 'Check Attachments' },

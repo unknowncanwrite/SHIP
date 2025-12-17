@@ -13,6 +13,8 @@ interface Task {
   hasEmail?: boolean;
   emailSubject?: string;
   emailBody?: string;
+  emailTo?: string;
+  emailCC?: string;
   isWhatsApp?: boolean;
   needsAttachmentCheck?: boolean;
 }
@@ -118,6 +120,18 @@ export default function PhaseSection({
 
             {task.hasEmail && (
               <div className="ml-7 space-y-2 p-3 bg-muted/30 rounded-md border border-muted text-xs">
+                {task.emailTo && (
+                  <div className="space-y-1">
+                    <div className="font-bold text-muted-foreground uppercase">To:</div>
+                    <div className="text-foreground">{task.emailTo}</div>
+                  </div>
+                )}
+                {task.emailCC && (
+                  <div className="space-y-1">
+                    <div className="font-bold text-muted-foreground uppercase">CC:</div>
+                    <div className="text-foreground">{task.emailCC}</div>
+                  </div>
+                )}
                 <div className="space-y-1">
                   <div className="font-bold text-muted-foreground uppercase">Subject:</div>
                   <div className="text-foreground">{task.emailSubject}</div>
