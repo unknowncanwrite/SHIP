@@ -109,7 +109,8 @@ export const getFumigationTasks = (data: ShipmentData): TaskDefinition[] => {
          needsAttachmentCheck: true,
          emailSubject: (d) => `Fumigation Certificate Request - ${d.id}`, 
          emailBody: () => `Please find attached the required documents for fumigation certificate processing. Kindly arrange the fumigation certificate at your earliest convenience.` 
-       }
+       },
+       { id: 'p2_fum_cert_verify', label: 'Receive & Verify Fumigation Certificate as per Documents' }
     ];
   } else if (data.fumigation === 'sgs') {
     return [
@@ -122,14 +123,16 @@ export const getFumigationTasks = (data: ShipmentData): TaskDefinition[] => {
          emailSubject: (d) => `SGS Fumigation - ${d.id}`, 
          emailBody: () => `Please find attached the required documents for SGS fumigation.` 
        },
-       { id: 'p2_sgs_confirm', label: 'SGS: Receive Fumigation Confirmation' }
+       { id: 'p2_sgs_confirm', label: 'SGS: Receive Fumigation Confirmation' },
+       { id: 'p2_fum_cert_verify', label: 'Receive & Verify Fumigation Certificate as per Documents' }
     ];
   } else {
     const providerName = data.manualFumigationName || 'Fumigation Provider';
     return [
        { id: 'p2_manual_fum_contact', label: `${providerName}: Contact via ${data.manualFumigationMethod}`, needsAttachmentCheck: true },
        { id: 'p2_manual_fum_docs', label: `${providerName}: Send Fumigation Documents` },
-       { id: 'p2_manual_fum_confirm', label: `${providerName}: Confirm Fumigation Completion` }
+       { id: 'p2_manual_fum_confirm', label: `${providerName}: Confirm Fumigation Completion` },
+       { id: 'p2_fum_cert_verify', label: 'Receive & Verify Fumigation Certificate as per Documents' }
     ];
   }
 };
