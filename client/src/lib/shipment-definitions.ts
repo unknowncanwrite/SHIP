@@ -73,8 +73,9 @@ export const PHASE_3_TASKS: TaskDefinition[] = [
     label: 'Request Final COC', 
     hasEmail: true,
     needsAttachmentCheck: true,
-    emailSubject: (d) => `COC Finalization - ${d.id}`, 
     emailBody: () => `COC Draft Confirmed. Payment attached. Please issue Final.`,
+    note: 'Reply to the original SGS inspection email.',
+    hideSubject: true,
     subTasks: ['CONFIRM ATTACHMENT: SGS PAYMENT INVOICE & SGS PAYMENT CHECK']
   },
 ];
