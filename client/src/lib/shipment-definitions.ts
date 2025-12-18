@@ -126,7 +126,8 @@ export const getFumigationTasks = (data: ShipmentData): TaskDefinition[] => {
       needsAttachmentCheck: true,
       emailTo: 'skyservices2k19@gmail.com',
       emailSubject: (d) => `Fumigation Certificate Request - INV# ${d.commercial.invoice || d.id}`, 
-      emailBody: () => `Please find attached the required documents for fumigation certificate processing. Kindly arrange the fumigation certificate at your earliest convenience.` 
+      emailBody: () => `Please find attached the required documents for fumigation certificate processing. Kindly arrange the fumigation certificate at your earliest convenience.`,
+      subTasks: ['Confirm Attachments: Commercial Invoice & Packing List']
     },
     { id: 'p2_fum_cert_verify', label: 'Receive & Verify Fumigation Certificate as per Documents' }
   ];
