@@ -336,6 +336,11 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
                             <div className="text-accent font-mono">Fazila.Shaikh@sgs.com</div>
                         </div>
                         <div className="p-2 bg-muted/20 rounded-md border border-muted">
+                            <div className="font-medium text-foreground">SGS (COC/Payment)</div>
+                            <div className="text-muted-foreground mt-1">SGS</div>
+                            <div className="text-accent font-mono">Saqib.Qadeer@sgs.com</div>
+                        </div>
+                        <div className="p-2 bg-muted/20 rounded-md border border-muted">
                             <div className="font-medium text-foreground">Forwarder</div>
                             <div className="text-muted-foreground mt-1">XPO Logistics</div>
                             <div className="text-accent font-mono">docs@xml.com.pk</div>
