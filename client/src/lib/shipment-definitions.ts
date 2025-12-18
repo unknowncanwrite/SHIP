@@ -88,6 +88,11 @@ export const getForwarderTasks = (data: ShipmentData): TaskDefinition[] => {
   const blDraftLabel = isWithInspection 
     ? 'PREPARE BL DRAFT AS PER INSPECTION DOCUMENTS' 
     : 'PREPARE BL DRAFT AS PER ACTUAL LOADED';
+  
+  const getForwarderEmail = (d: ShipmentData): string => {
+    if (d.forwarder === 'xpo') return 'docs@xml.com.pk';
+    return '';
+  };
     
   return [
     { 
@@ -100,6 +105,7 @@ export const getForwarderTasks = (data: ShipmentData): TaskDefinition[] => {
       hasEmail: data.manualMethod !== 'whatsapp',
       isWhatsApp: data.manualMethod === 'whatsapp',
       needsAttachmentCheck: true,
+      emailTo: getForwarderEmail,
       emailSubject: (d) => `Draft Bill of Lading (BL) Attached - ${d.details.container} - ${d.commercial.invoice}`, 
       emailBody: (d) => `Please find attached the draft Bill of Lading (BL).
 Against Container Number - ${d.details.container}
