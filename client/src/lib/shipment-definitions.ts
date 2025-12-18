@@ -86,16 +86,25 @@ export const getForwarderTasks = (data: ShipmentData): TaskDefinition[] => {
     : data.forwarder === 'hmi' 
     ? 'HMI' 
     : data.manualForwarderName || 'Forwarder';
+  
+  const isWithInspection = data.shipmentType === 'with-inspection';
+  const blDraftLabel = isWithInspection 
+    ? 'PREPARE BL DRAFT AS PER INSPECTION DOCUMENTS' 
+    : 'PREPARE BL DRAFT AS PER ACTUAL LOADED';
     
   return [
-    { id: 'p4_confirm_loading', label: `${forwarderName}: Confirm Loading` },
     { 
-      id: 'p4_send_docs', 
-      label: `${forwarderName}: Send Final Docs`, 
-      hasEmail: true,
+      id: 'p4_prepare_bl', 
+      label: blDraftLabel
+    },
+    { 
+      id: 'p4_send_bl_draft', 
+      label: `SEND BL DRAFT TO ${forwarderName} VIA ${data.manualMethod === 'whatsapp' ? 'WHATSAPP' : 'EMAIL'}`,
+      hasEmail: data.manualMethod !== 'whatsapp' || data.forwarder !== 'manual',
+      isWhatsApp: data.manualMethod === 'whatsapp' && data.forwarder === 'manual',
       needsAttachmentCheck: true,
-      emailSubject: (d) => `Final Docs - ${d.id}`, 
-      emailBody: () => `Please find attached final documents.` 
+      emailSubject: (d) => `BL Draft - ${d.id}`, 
+      emailBody: () => `Please find attached BL Draft.`
     }
   ];
 };
