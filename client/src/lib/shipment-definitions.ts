@@ -104,7 +104,9 @@ export const getForwarderTasks = (data: ShipmentData): TaskDefinition[] => {
       isWhatsApp: data.manualMethod === 'whatsapp' && data.forwarder === 'manual',
       needsAttachmentCheck: true,
       emailSubject: (d) => `BL Draft - ${d.id}`, 
-      emailBody: () => `Please find attached BL Draft.`
+      emailBody: (d) => `Please find attached the draft Bill of Lading (BL).
+Against Container Number - ${d.details.container}
+Booking Number - ${d.details.booking}`
     }
   ];
 };
