@@ -401,7 +401,7 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
                         <Label>Shipment Type</Label>
                         <RadioGroup 
                             value={currentShipment.shipmentType} 
-                            onValueChange={(val) => updateShipment(currentShipment.id, { shipmentType: val as any })}
+                            onValueChange={(val) => updateShipment.mutate({ id: currentShipment.id, data: { shipmentType: val as any } })}
                             className="flex flex-col space-y-1"
                         >
                             <div className="flex items-center space-x-2">
@@ -421,7 +421,7 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
                         <Label>Fumigation</Label>
                         <RadioGroup 
                             value={currentShipment.fumigation} 
-                            onValueChange={(val) => updateShipment(currentShipment.id, { fumigation: val as any })}
+                            onValueChange={(val) => updateShipment.mutate({ id: currentShipment.id, data: { fumigation: val as any } })}
                             className="flex flex-col space-y-1"
                         >
                             <div className="flex items-center space-x-2">
@@ -448,7 +448,7 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
                                 />
                                 <RadioGroup 
                                     value={currentShipment.manualFumigationMethod} 
-                                    onValueChange={(val) => updateShipment(currentShipment.id, { manualFumigationMethod: val as any })}
+                                    onValueChange={(val) => updateShipment.mutate({ id: currentShipment.id, data: { manualFumigationMethod: val as any } })}
                                     className="flex items-center gap-4"
                                 >
                                     <div className="flex items-center space-x-2">
@@ -476,7 +476,7 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
                         />
                         <RadioGroup 
                             value={currentShipment.manualMethod} 
-                            onValueChange={(val) => updateShipment(currentShipment.id, { manualMethod: val as any })}
+                            onValueChange={(val) => updateShipment.mutate({ id: currentShipment.id, data: { manualMethod: val as any } })}
                             className="flex items-center gap-4"
                         >
                             <div className="flex items-center space-x-2">
