@@ -16,6 +16,7 @@ interface Task {
   emailTo?: string;
   emailCC?: string;
   isWhatsApp?: boolean;
+  whatsappBody?: string;
   needsAttachmentCheck?: boolean;
   note?: string;
   subTasks?: string[];
@@ -215,6 +216,30 @@ export default function PhaseSection({
                     </Button>
                   </div>
                   <div className="text-foreground whitespace-pre-wrap">{task.emailBody}</div>
+                </div>
+              </div>
+            )}
+
+            {task.isWhatsApp && task.whatsappBody && (
+              <div className="ml-7 space-y-2 p-3 bg-muted/30 rounded-md border border-muted text-xs">
+                {task.note && (
+                  <div className="text-xs text-muted-foreground italic bg-muted/20 p-2 rounded border border-muted/50">
+                    {task.note}
+                  </div>
+                )}
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between">
+                    <div className="font-bold text-muted-foreground uppercase">Message:</div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-6 w-6 p-0 text-accent hover:text-accent hover:bg-accent/10"
+                      onClick={() => copyToClipboard(task.whatsappBody || '', 'Message')}
+                    >
+                      <Copy className="h-3 w-3" />
+                    </Button>
+                  </div>
+                  <div className="text-foreground whitespace-pre-wrap">{task.whatsappBody}</div>
                 </div>
               </div>
             )}

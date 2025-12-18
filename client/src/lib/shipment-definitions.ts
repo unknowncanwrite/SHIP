@@ -15,6 +15,7 @@ export interface TaskDefinition {
   emailTo?: string | ((data: ShipmentData) => string);
   emailCC?: string | ((data: ShipmentData) => string);
   isWhatsApp?: boolean;
+  whatsappBody?: string | ((data: ShipmentData) => string);
   needsAttachmentCheck?: boolean;
   note?: string;
   subTasks?: string[];
@@ -101,7 +102,10 @@ export const getForwarderTasks = (data: ShipmentData): TaskDefinition[] => {
       emailSubject: (d) => `Draft Bill of Lading (BL) Attached - ${d.details.container} - ${d.commercial.invoice}`, 
       emailBody: (d) => `Please find attached the draft Bill of Lading (BL).
 Against Container Number - ${d.details.container}
-Booking Number - ${d.details.booking}`
+Booking Number - ${d.details.booking}`,
+      whatsappBody: (d) => `draft Bill of Lading (BL).
+Container: ${d.details.container}
+BOOKING NUMBER: ${d.details.booking}`
     }
   ];
 };
