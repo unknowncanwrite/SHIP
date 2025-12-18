@@ -95,6 +95,27 @@ export default function PhaseSection({
                       Health Cert, Fumigation Cert, CI, PL, Declaration of Origin, Used Clothing & Shoes Undertakings
                     </div>
                   )}
+                  {task.id === 'p3a_sgs_docs' && (
+                    <div className="text-xs mt-2">
+                      <div className="flex items-center gap-2">
+                        <Checkbox 
+                          id={`${task.id}-attachment-confirm`}
+                          checked={subTaskState[`${task.id}-attachment-confirm`] || false}
+                          onCheckedChange={() => setSubTaskState(prev => ({
+                            ...prev,
+                            [`${task.id}-attachment-confirm`]: !prev[`${task.id}-attachment-confirm`]
+                          }))}
+                          className="h-4 w-4"
+                        />
+                        <Label 
+                          htmlFor={`${task.id}-attachment-confirm`}
+                          className="text-xs font-medium cursor-pointer text-muted-foreground"
+                        >
+                          Health Cert, Fumigation Cert, CI, PL, Declaration of Origin, Used Clothing & Shoes Undertakings
+                        </Label>
+                      </div>
+                    </div>
+                  )}
                   {task.subTasks && task.subTasks.length > 0 && (
                     <div className="text-xs mt-2 ml-0 space-y-1">
                       {task.subTasks.map((subTask, idx) => {
