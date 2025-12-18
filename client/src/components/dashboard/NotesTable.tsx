@@ -11,7 +11,7 @@ interface Note {
 
 export default function NotesTable() {
   const [notes, setNotes] = useState<Note[]>([
-    { id: '1', date: new Date().toISOString().split('T')[0], content: 'Sample note - edit or delete' }
+    { id: '1', date: new Date().toISOString().split('T')[0], content: 'Sample note' }
   ]);
   const [newNote, setNewNote] = useState('');
 
@@ -38,44 +38,40 @@ export default function NotesTable() {
   };
 
   return (
-    <div className="bg-card rounded-lg border shadow-sm overflow-hidden">
+    <div className="bg-card rounded-lg border shadow-sm overflow-hidden h-fit sticky top-24">
       {/* Header */}
-      <div className="bg-muted/30 px-6 py-4 border-b">
-        <h2 className="font-semibold text-lg text-foreground">Notes</h2>
-        <p className="text-xs text-muted-foreground mt-1">Keep track of important information</p>
+      <div className="bg-muted/30 px-4 py-3 border-b">
+        <h2 className="font-semibold text-base text-foreground">Notes</h2>
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full">
+      <div className="overflow-y-auto max-h-96">
+        <table className="w-full text-sm">
           <thead>
             <tr className="border-b bg-muted/20">
-              <th className="text-left px-6 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">Date</th>
-              <th className="text-left px-6 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">Notes</th>
-              <th className="text-right px-6 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">Action</th>
+              <th className="text-left px-4 py-2 text-xs font-semibold text-muted-foreground">Date</th>
+              <th className="text-left px-4 py-2 text-xs font-semibold text-muted-foreground">Note</th>
             </tr>
           </thead>
           <tbody>
             {notes.map((note) => (
-              <tr key={note.id} className="border-b hover:bg-muted/10 transition-colors">
-                <td className="px-6 py-3 text-sm text-muted-foreground font-mono whitespace-nowrap">{note.date}</td>
-                <td className="px-6 py-3 text-sm">
+              <tr key={note.id} className="border-b hover:bg-muted/10 transition-colors group">
+                <td className="px-4 py-2 text-xs text-muted-foreground font-mono whitespace-nowrap">{note.date}</td>
+                <td className="px-4 py-2 text-xs flex items-center justify-between gap-1">
                   <input
                     type="text"
                     value={note.content}
                     onChange={(e) => updateNote(note.id, e.target.value)}
-                    className="w-full bg-transparent border-0 focus:outline-none focus:ring-0 font-medium text-foreground placeholder-muted-foreground"
-                    placeholder="Add your note here..."
+                    className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 text-foreground placeholder-muted-foreground"
+                    placeholder="Note..."
                   />
-                </td>
-                <td className="px-6 py-3 text-right">
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="h-8 w-8 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
+                    className="h-6 w-6 p-0 text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
                     onClick={() => deleteNote(note.id)}
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-3 w-3" />
                   </Button>
                 </td>
               </tr>
@@ -85,20 +81,20 @@ export default function NotesTable() {
       </div>
 
       {/* Add New Note */}
-      <div className="bg-muted/5 px-6 py-4 border-t flex gap-2">
+      <div className="bg-muted/5 px-4 py-3 border-t flex gap-2">
         <Input
           value={newNote}
           onChange={(e) => setNewNote(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && addNote()}
-          placeholder="Add a new note..."
-          className="flex-1"
+          placeholder="Add..."
+          className="h-8 text-xs"
         />
         <Button
           onClick={addNote}
-          className="bg-accent hover:bg-accent/90 text-white"
+          className="bg-accent hover:bg-accent/90 text-white h-8 px-2"
           size="sm"
         >
-          <Plus className="h-4 w-4 mr-1" /> Add
+          <Plus className="h-3 w-3" />
         </Button>
       </div>
     </div>
