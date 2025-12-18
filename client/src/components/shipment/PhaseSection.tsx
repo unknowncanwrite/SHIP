@@ -111,7 +111,7 @@ export default function PhaseSection({
                           htmlFor={`${task.id}-attachment-confirm`}
                           className="text-xs font-medium cursor-pointer text-muted-foreground"
                         >
-                          Health Cert, Fumigation Cert, CI, PL, Declaration of Origin, Used Clothing & Shoes Undertakings
+                          CONFIRM ATTACHEMENT: Health Cert, Fumigation Cert, CI, PL, Declaration of Origin, Used Clothing & Shoes Undertakings
                         </Label>
                       </div>
                     </div>
