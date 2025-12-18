@@ -124,7 +124,8 @@ Please proceed with the finalization`
     },
     { 
       id: 'p4_final_bl', 
-      label: 'Final BL / Seaway Received'
+      label: 'Final BL Received',
+      subTasks: ['Seaway', 'Surrender', 'Telex', 'Dispatch', 'OBL']
     }
   ];
 };
