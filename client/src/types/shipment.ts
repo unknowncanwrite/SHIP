@@ -41,6 +41,7 @@ export interface ShipmentData {
 
   // --- Custom Tasks ---
   customTasks: Array<{ id: string; text: string; completed: boolean }>;
+  logisticsTasks: Array<{ id: string; text: string; completed: boolean }>;
 
   // --- Documents ---
   documents: Array<{ id: string; name: string; file: string; createdAt: number }>;
@@ -91,6 +92,7 @@ export const initialShipmentData: ShipmentData = {
     invoiceSent: false,
   },
   customTasks: [],
+  logisticsTasks: [],
   documents: [],
   checklist: {},
 };

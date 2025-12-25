@@ -49,6 +49,7 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
   const { toast } = useToast();
   const { theme, setTheme } = useTheme();
   const [newTaskInput, setNewTaskInput] = useState('');
+  const [newLogisticsTaskInput, setNewLogisticsTaskInput] = useState('');
   const [newDocName, setNewDocName] = useState('');
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -248,6 +249,33 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
     updateShipment.mutate({ id, data: { documents: newDocuments } });
   };
 
+  const toggleLogisticsTask = (id: string, taskId: string) => {
+    const newLogisticsTasks = (currentShipment.logisticsTasks || []).map(t => 
+      t.id === taskId ? { ...t, completed: !t.completed } : t
+    );
+    updateShipment.mutate({ id, data: { logisticsTasks: newLogisticsTasks } });
+  };
+
+  const deleteLogisticsTask = (id: string, taskId: string) => {
+    const newLogisticsTasks = (currentShipment.logisticsTasks || []).filter(t => t.id !== taskId);
+    updateShipment.mutate({ id, data: { logisticsTasks: newLogisticsTasks } });
+  };
+
+  const handleAddLogisticsTask = () => {
+    if (newLogisticsTaskInput.trim()) {
+      const newTask = {
+        id: Math.random().toString(36).substr(2, 9),
+        text: newLogisticsTaskInput.trim(),
+        completed: false,
+      };
+      updateShipment.mutate({
+        id: currentShipment.id,
+        data: { logisticsTasks: [...(currentShipment.logisticsTasks || []), newTask] }
+      });
+      setNewLogisticsTaskInput('');
+    }
+  };
+
   // Countdown Logic
   const countdown = useMemo(() => {
     if (!currentShipment.details.inspectionDate) {
@@ -397,6 +425,94 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
                     <div className="text-xs text-muted-foreground mt-3 text-center">Click any task to view</div>
                   </div>
                 )}
+
+                {/* Operations Tasks (Original Custom Tasks) */}
+                <div className="bg-card p-4 rounded-lg border shadow-sm">
+                    <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider mb-4">Operations Tasks</h3>
+                    <div className="space-y-3">
+                        {currentShipment.customTasks.map((task) => (
+                            <div key={task.id} className="flex items-center justify-between group">
+                                <div className="flex items-center gap-2">
+                                    <Checkbox 
+                                        id={task.id} 
+                                        checked={task.completed} 
+                                        onCheckedChange={() => toggleCustomTask(currentShipment.id, task.id)}
+                                    />
+                                    <label 
+                                        htmlFor={task.id}
+                                        className={`text-sm cursor-pointer ${task.completed ? 'line-through text-muted-foreground' : ''}`}
+                                    >
+                                        {task.text}
+                                    </label>
+                                </div>
+                                <Button 
+                                    variant="ghost" 
+                                    size="icon" 
+                                    className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                                    onClick={() => deleteCustomTask(currentShipment.id, task.id)}
+                                >
+                                    <X className="h-3 w-3" />
+                                </Button>
+                            </div>
+                        ))}
+                        <div className="flex gap-2 mt-4">
+                            <Input 
+                                placeholder="Add operations task..." 
+                                value={newTaskInput}
+                                onChange={(e) => setNewTaskInput(e.target.value)}
+                                onKeyDown={(e) => e.key === 'Enter' && handleAddCustomTask()}
+                                className="h-8 text-xs"
+                            />
+                            <Button size="icon" className="h-8 w-8 shrink-0" onClick={handleAddCustomTask}>
+                                <Plus className="h-4 w-4" />
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Logistics Tasks */}
+                <div className="bg-card p-4 rounded-lg border shadow-sm">
+                    <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider mb-4">Logistics Tasks</h3>
+                    <div className="space-y-3">
+                        {(currentShipment.logisticsTasks || []).map((task) => (
+                            <div key={task.id} className="flex items-center justify-between group">
+                                <div className="flex items-center gap-2">
+                                    <Checkbox 
+                                        id={`log-${task.id}`} 
+                                        checked={task.completed} 
+                                        onCheckedChange={() => toggleLogisticsTask(currentShipment.id, task.id)}
+                                    />
+                                    <label 
+                                        htmlFor={`log-${task.id}`}
+                                        className={`text-sm cursor-pointer ${task.completed ? 'line-through text-muted-foreground' : ''}`}
+                                    >
+                                        {task.text}
+                                    </label>
+                                </div>
+                                <Button 
+                                    variant="ghost" 
+                                    size="icon" 
+                                    className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                                    onClick={() => deleteLogisticsTask(currentShipment.id, task.id)}
+                                >
+                                    <X className="h-3 w-3" />
+                                </Button>
+                            </div>
+                        ))}
+                        <div className="flex gap-2 mt-4">
+                            <Input 
+                                placeholder="Add logistics task..." 
+                                value={newLogisticsTaskInput}
+                                onChange={(e) => setNewLogisticsTaskInput(e.target.value)}
+                                onKeyDown={(e) => e.key === 'Enter' && handleAddLogisticsTask()}
+                                className="h-8 text-xs"
+                            />
+                            <Button size="icon" className="h-8 w-8 shrink-0" onClick={handleAddLogisticsTask}>
+                                <Plus className="h-4 w-4" />
+                            </Button>
+                        </div>
+                    </div>
+                </div>
 
                 {/* Countdown Widget */}
                 <div className={`p-6 rounded-lg border shadow-sm flex flex-col items-center justify-center gap-2 ${countdown.bg}`}>
