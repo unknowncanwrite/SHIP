@@ -52,7 +52,6 @@ export const shipments = pgTable("shipments", {
     invoiceSent: boolean;
   }>(),
   
-  customTasks: jsonb("custom_tasks").notNull().$type<Array<{ id: string; text: string; completed: boolean }>>().default([]),
   logisticsTasks: jsonb("logistics_tasks").notNull().$type<Array<{ id: string; text: string; completed: boolean }>>().default([]),
   documents: jsonb("documents").notNull().$type<Array<{ id: string; name: string; file: string; createdAt: number }>>().default([]),
   checklist: jsonb("checklist").notNull().$type<Record<string, boolean>>(),
@@ -89,7 +88,6 @@ export const insertShipmentSchema = createInsertSchema(shipments, {
   details: z.any(),
   commercial: z.any(),
   actual: z.any(),
-  customTasks: z.any().optional().default([]),
   logisticsTasks: z.any().optional().default([]),
   documents: z.any().optional().default([]),
   checklist: z.any().optional().default({}),

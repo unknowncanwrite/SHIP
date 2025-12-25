@@ -39,8 +39,7 @@ export interface ShipmentData {
     invoiceSent: boolean; // #actual-invoice-status
   };
 
-  // --- Custom Tasks ---
-  customTasks: Array<{ id: string; text: string; completed: boolean }>;
+  // --- Logistics Tasks ---
   logisticsTasks: Array<{ id: string; text: string; completed: boolean }>;
 
   // --- Documents ---
@@ -91,7 +90,6 @@ export const initialShipmentData: ShipmentData = {
     grossWeight: '',
     invoiceSent: false,
   },
-  customTasks: [],
   logisticsTasks: [],
   documents: [],
   checklist: {},
