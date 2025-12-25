@@ -102,17 +102,6 @@ export async function registerRoutes(
       res.status(500).json({ error: "Failed to delete shipment" });
     }
   });
-
-  // Get shipment history
-  app.get("/api/shipments/:id/history", async (req, res) => {
-    try {
-      const history = await storage.getShipmentHistory(req.params.id);
-      res.json(history);
-    } catch (error) {
-      console.error("Error fetching history:", error);
-      res.status(500).json({ error: "Failed to fetch shipment history" });
-    }
-  });
   
   // ============ NOTES ROUTES ============
   

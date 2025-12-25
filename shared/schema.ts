@@ -52,8 +52,8 @@ export const shipments = pgTable("shipments", {
     invoiceSent: boolean;
   }>(),
   
-  logisticsTasks: jsonb("logistics_tasks").notNull().$type<Array<{ id: string; text: string; completed: boolean }>>().default([]),
-  documents: jsonb("documents").notNull().$type<Array<{ id: string; name: string; file: string; createdAt: number }>>().default([]),
+  customTasks: jsonb("custom_tasks").notNull().$type<Array<{ id: string; text: string; completed: boolean }>>(),
+  documents: jsonb("documents").notNull().$type<Array<{ id: string; name: string; file: string; createdAt: number }>>(),
   checklist: jsonb("checklist").notNull().$type<Record<string, boolean>>(),
 });
 
@@ -65,15 +65,6 @@ export const notes = pgTable("notes", {
   createdAt: bigint("created_at", { mode: "number" }).notNull(),
 });
 
-// Shipment History table
-export const shipmentHistory = pgTable("shipment_history", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  shipmentId: varchar("shipment_id").notNull(),
-  action: text("action").notNull(), // e.g., "Created", "Updated Details", "Added Task"
-  changes: jsonb("changes").$type<Record<string, any>>(),
-  timestamp: bigint("timestamp", { mode: "number" }).notNull(),
-});
-
 // Insert schemas - make all fields optional except required ones
 export const insertShipmentSchema = createInsertSchema(shipments, {
   createdAt: z.number().optional(),
@@ -81,7 +72,7 @@ export const insertShipmentSchema = createInsertSchema(shipments, {
   details: z.any(),
   commercial: z.any(),
   actual: z.any(),
-  logisticsTasks: z.any().optional().default([]),
+  customTasks: z.any().optional().default([]),
   documents: z.any().optional().default([]),
   checklist: z.any().optional().default({}),
 }).partial().required({
@@ -96,12 +87,8 @@ export const insertNoteSchema = createInsertSchema(notes, {
   createdAt: true,
 });
 
-export const insertShipmentHistorySchema = createInsertSchema(shipmentHistory);
-
 // Types
 export type InsertShipment = z.infer<typeof insertShipmentSchema>;
 export type Shipment = typeof shipments.$inferSelect;
 export type InsertNote = z.infer<typeof insertNoteSchema>;
 export type Note = typeof notes.$inferSelect;
-export type ShipmentHistory = typeof shipmentHistory.$inferSelect;
-export type InsertShipmentHistory = z.infer<typeof insertShipmentHistorySchema>;

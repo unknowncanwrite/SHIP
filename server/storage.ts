@@ -1,4 +1,4 @@
-import { shipments, notes, shipmentHistory, type Shipment, type InsertShipment, type Note, type InsertNote, type ShipmentHistory, type InsertShipmentHistory } from "@shared/schema";
+import { shipments, notes, type Shipment, type InsertShipment, type Note, type InsertNote } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
 
@@ -15,10 +15,6 @@ export interface IStorage {
   createNote(note: InsertNote): Promise<Note>;
   updateNote(id: string, note: Partial<InsertNote>): Promise<Note | undefined>;
   deleteNote(id: string): Promise<boolean>;
-
-  // History operations
-  getShipmentHistory(shipmentId: string): Promise<ShipmentHistory[]>;
-  addHistoryEntry(entry: InsertShipmentHistory): Promise<ShipmentHistory>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -42,37 +38,18 @@ export class DatabaseStorage implements IStorage {
         lastUpdated: now,
       } as any)
       .returning();
-    
-    await this.addHistoryEntry({
-      shipmentId: created.id,
-      action: "Created",
-      timestamp: now,
-      changes: created
-    });
-
     return created;
   }
 
   async updateShipment(id: string, shipment: Partial<InsertShipment>): Promise<Shipment | undefined> {
-    const now = Date.now();
     const [updated] = await db
       .update(shipments)
       .set({
         ...shipment,
-        lastUpdated: now,
-      })
+        lastUpdated: Date.now(),
+      } as any)
       .where(eq(shipments.id, id))
       .returning();
-    
-    if (updated) {
-      await this.addHistoryEntry({
-        shipmentId: updated.id,
-        action: "Updated",
-        timestamp: now,
-        changes: shipment
-      });
-    }
-
     return updated || undefined;
   }
 
@@ -109,21 +86,6 @@ export class DatabaseStorage implements IStorage {
   async deleteNote(id: string): Promise<boolean> {
     const result = await db.delete(notes).where(eq(notes.id, id)).returning();
     return result.length > 0;
-  }
-
-  // History operations
-  async getShipmentHistory(shipmentId: string): Promise<ShipmentHistory[]> {
-    return await db.select().from(shipmentHistory)
-      .where(eq(shipmentHistory.shipmentId, shipmentId))
-      .orderBy(desc(shipmentHistory.timestamp));
-  }
-
-  async addHistoryEntry(entry: InsertShipmentHistory): Promise<ShipmentHistory> {
-    const [created] = await db
-      .insert(shipmentHistory)
-      .values(entry)
-      .returning();
-    return created;
   }
 }
 
