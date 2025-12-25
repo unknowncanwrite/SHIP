@@ -74,13 +74,6 @@ export const shipmentHistory = pgTable("shipment_history", {
   timestamp: bigint("timestamp", { mode: "number" }).notNull(),
 });
 
-// Insert schemas
-export const insertShipmentHistorySchema = createInsertSchema(shipmentHistory);
-
-// Types
-export type ShipmentHistory = typeof shipmentHistory.$inferSelect;
-export type InsertShipmentHistory = z.infer<typeof insertShipmentHistorySchema>;
-
 // Insert schemas - make all fields optional except required ones
 export const insertShipmentSchema = createInsertSchema(shipments, {
   createdAt: z.number().optional(),
@@ -103,8 +96,12 @@ export const insertNoteSchema = createInsertSchema(notes, {
   createdAt: true,
 });
 
+export const insertShipmentHistorySchema = createInsertSchema(shipmentHistory);
+
 // Types
 export type InsertShipment = z.infer<typeof insertShipmentSchema>;
 export type Shipment = typeof shipments.$inferSelect;
 export type InsertNote = z.infer<typeof insertNoteSchema>;
 export type Note = typeof notes.$inferSelect;
+export type ShipmentHistory = typeof shipmentHistory.$inferSelect;
+export type InsertShipmentHistory = z.infer<typeof insertShipmentHistorySchema>;
