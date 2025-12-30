@@ -13,7 +13,7 @@ export const printDeclaration = (data: ShipmentData) => {
       <title>Declaration - ${data.id}</title>
       <style>
         body { font-family: 'Times New Roman', serif; padding: 50px 40px; line-height: 1.6; max-width: 850px; margin: 0 auto; }
-        .date { text-align: right; margin-bottom: 120px; font-size: 12pt; }
+        .date { text-align: right; margin-bottom: 160px; font-size: 12pt; }
         .spacer-before { height: 20px; }
         h1 { text-align: center; text-decoration: underline; margin: 20px 0; font-size: 16pt; letter-spacing: 1px; }
         .declaration-text { text-align: justify; margin: 30px 0; line-height: 1.7; font-size: 11pt; }
@@ -36,7 +36,7 @@ export const printDeclaration = (data: ShipmentData) => {
       <div class="details-section">
         <div class="detail-line">IDF# ${data.details.idf || '_________________'},</div>
         <div class="detail-line">UCR # ${data.details.ucr || '_________________'}</div>
-        <div class="detail-line">PFI# : _________________</div>
+        <div class="detail-line">PFI# : ${data.details.proforma || '_________________'}</div>
         <div class="detail-line">CNTR# ${data.details.container || '_________________'}</div>
       </div>
       
