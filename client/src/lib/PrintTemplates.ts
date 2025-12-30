@@ -12,48 +12,34 @@ export const printDeclaration = (data: ShipmentData) => {
     <head>
       <title>Declaration - ${data.id}</title>
       <style>
-        body { font-family: 'Times New Roman', serif; padding: 40px; line-height: 1.6; max-width: 800px; margin: 0 auto; }
-        h1 { text-align: center; text-decoration: underline; margin-bottom: 40px; font-size: 18pt; }
-        p { margin-bottom: 15px; text-align: justify; }
-        .signature { margin-top: 60px; }
-        .bold { font-weight: bold; }
+        body { font-family: 'Times New Roman', serif; padding: 40px; line-height: 1.8; max-width: 800px; margin: 0 auto; }
+        .date { text-align: right; margin-bottom: 60px; font-weight: bold; }
+        h1 { text-align: center; text-decoration: underline; margin-bottom: 60px; font-size: 20pt; letter-spacing: 2px; }
+        p { margin-bottom: 20px; text-align: justify; }
+        .declaration-body { margin: 40px 0; line-height: 1.9; }
+        .details-section { margin-top: 30px; margin-bottom: 30px; }
+        .detail-line { margin-bottom: 15px; }
+        .company-name { text-align: center; margin-top: 80px; font-weight: bold; font-size: 14pt; }
         @media print { body { padding: 0; } }
       </style>
     </head>
     <body>
+      <div class="date">${formatDate(data.details.inspectionDate || new Date().toISOString())}</div>
+      
       <h1>DECLARATION</h1>
       
-      <p>The Commissioner of Customs,</p>
-      <p>Customs & Excise Department,</p>
-      <p><strong>MOMBASA.</strong></p>
+      <div class="declaration-body">
+        <p>We undertake that we import ${data.details.brand || 'used clothing'} from USA, inspected by SGS Pakistan, export to ${data.details.consignee || 'M/s Safqa Limited'}, Mombasa, Kenya vide IDF# ${data.details.idf || '_________________'}.</p>
+      </div>
       
-      <br/>
+      <div class="details-section">
+        <div class="detail-line"><strong>UCR #</strong> ${data.details.ucr || '_________________'}</div>
+        <div class="detail-line"><strong>PFI#</strong> _________________</div>
+        <div class="detail-line"><strong>CNTR#</strong> ${data.details.container || '_________________'}</div>
+      </div>
       
-      <p>Dear Sir/Madam,</p>
-      
-      <p>
-        <strong>RE: IMPORTATION OF ${data.details.brand || 'GOODS'} 
-        PER CONTAINER NO: ${data.details.container || '_________________'}
-        IDF NO: ${data.details.idf || '_________________'}</strong>
-      </p>
-      
-      <p>
-        I, <strong>${data.details.consignee || '_________________'}</strong>, being the importer of the above mentioned goods, 
-        do hereby declare that the values declared in the invoice number <strong>${data.details.commercialInv || '_________________'}</strong> 
-        are the actual transaction values paid/payable for the goods.
-      </p>
-      
-      <p>
-        I further declare that the invoice submitted is genuine and the only one issued for this consignment. 
-        I undertake to produce any other documents that may be required by customs for verification of value.
-      </p>
-      
-      <p>Yours Faithfully,</p>
-      
-      <div class="signature">
-        <p>__________________________</p>
-        <p><strong>${data.details.consignee || 'Importer'}</strong></p>
-        <p>Date: ${formatDate(data.details.inspectionDate)}</p>
+      <div class="company-name">
+        IDEAS RECYCLING PVT LTD
       </div>
       
       <script>window.print();</script>
