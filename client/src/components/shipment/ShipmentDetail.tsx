@@ -480,30 +480,6 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
                 </div>
 
 
-                {/* Contacts Widget */}
-                <div className="bg-card p-4 rounded-lg border shadow-sm space-y-3">
-                    <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">Quick Contacts</h3>
-                    <div className="space-y-2 text-xs">
-                        <div className="p-2 bg-muted/20 rounded-md border border-muted">
-                            <div className="font-medium text-foreground">Fumigation</div>
-                            <div className="text-muted-foreground mt-1">HASSAN SKY FUMIGATION</div>
-                            <div className="text-accent font-mono">03332990665</div>
-                        </div>
-                        <div className="p-2 bg-muted/20 rounded-md border border-muted">
-                            <div className="font-medium text-foreground">SGS - Inspection</div>
-                            <div className="text-accent font-mono">Fazila.Shaikh@sgs.com</div>
-                        </div>
-                        <div className="p-2 bg-muted/20 rounded-md border border-muted">
-                            <div className="font-medium text-foreground">SGS - Inspection</div>
-                            <div className="text-accent font-mono">Saqib.Qadeer@sgs.com</div>
-                        </div>
-                        <div className="p-2 bg-muted/20 rounded-md border border-muted">
-                            <div className="font-medium text-foreground">Forwarder</div>
-                            <div className="text-muted-foreground mt-1">XPO Logistics</div>
-                            <div className="text-accent font-mono">docs@xml.com.pk</div>
-                        </div>
-                    </div>
-                </div>
 
                 {/* Controls */}
                 <div className="bg-card p-4 rounded-lg border shadow-sm space-y-4">
