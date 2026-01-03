@@ -56,7 +56,7 @@ export const printUndertaking = (data: ShipmentData) => {
     <head>
       <title>Undertaking - ${data.id}</title>
       <style>
-        body { font-family: 'Times New Roman', serif; padding: 250px 40px 50px 40px; line-height: 1.6; max-width: 800px; margin: 0 auto; margin-top: 100px; }
+        body { font-family: 'Times New Roman', serif; padding: 180px 40px 50px 40px; line-height: 1.6; max-width: 800px; margin: 0 auto; margin-top: 50px; }
         .date { text-align: left; margin-bottom: 30px; font-size: 11pt; }
         .recipient { margin-bottom: 30px; font-size: 11pt; }
         .subject { text-align: center; font-weight: bold; text-decoration: underline; margin-bottom: 30px; font-size: 12pt; }
