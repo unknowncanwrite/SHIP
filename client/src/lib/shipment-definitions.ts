@@ -20,6 +20,7 @@ export interface TaskDefinition {
   note?: string;
   subTasks?: string[];
   hideSubject?: boolean;
+  hasRemarks?: boolean;
 }
 
 export const PHASE_1_TASKS: TaskDefinition[] = [
