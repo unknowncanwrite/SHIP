@@ -33,6 +33,14 @@ interface PhaseSectionProps {
   onToggle: (key: string, value?: boolean | string) => void;
   progress: number;
   missedTaskIds?: string[];
+  remarksData?: {
+    list: any[];
+    input: string;
+    setInput: (val: string) => void;
+    onAdd: (text: string) => void;
+    onToggle: (id: string) => void;
+    onDelete: (id: string) => void;
+  };
 }
 
 export default function PhaseSection({ 
@@ -42,7 +50,8 @@ export default function PhaseSection({
   checklistState, 
   onToggle,
   progress,
-  missedTaskIds = []
+  missedTaskIds = [],
+  remarksData
 }: PhaseSectionProps) {
   const { toast } = useToast();
   const [subTaskState, setSubTaskState] = useState<Record<string, boolean>>({});
@@ -124,6 +133,62 @@ export default function PhaseSection({
                       {task.label}
                     </Label>
                   </div>
+
+                  {task.id === 'p4_final_bl' && remarksData && (
+                    <div className="mt-3 p-3 bg-card border rounded-md shadow-sm space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Remarks</span>
+                        <Badge variant="outline" className="text-[10px] h-4">{remarksData.list.length}</Badge>
+                      </div>
+                      <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
+                        {remarksData.list.map((item: any) => (
+                          <div key={item.id} className="flex items-start gap-2 group">
+                            <Checkbox 
+                              id={`remark-${item.id}`} 
+                              checked={item.completed} 
+                              onCheckedChange={() => remarksData.onToggle(item.id)}
+                              className="mt-0.5 h-3.5 w-3.5"
+                            />
+                            <Label 
+                              htmlFor={`remark-${item.id}`} 
+                              className={`text-xs flex-1 break-words cursor-pointer ${item.completed ? 'text-muted-foreground line-through' : ''}`}
+                            >
+                              {item.item}
+                            </Label>
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              className="h-4 w-4 opacity-0 group-hover:opacity-100 text-destructive p-0"
+                              onClick={() => remarksData.onDelete(item.id)}
+                            >
+                              <X className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex gap-2">
+                        <Input 
+                          placeholder="New remark..." 
+                          value={remarksData.input}
+                          onChange={(e) => remarksData.setInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              remarksData.onAdd(remarksData.input);
+                            }
+                          }}
+                          className="h-7 text-xs"
+                        />
+                        <Button 
+                          size="icon" 
+                          variant="outline" 
+                          className="h-7 w-7"
+                          onClick={() => remarksData.onAdd(remarksData.input)}
+                        >
+                          <Plus className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
+                  )}
 
                   {isHighlighted && (
                     <div className="text-sm mt-1 bg-accent/20 text-foreground p-2 rounded border border-accent/30">

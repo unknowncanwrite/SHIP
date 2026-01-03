@@ -365,6 +365,18 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
   const fumigationMapped = useMemo(() => mapTasks(getFumigationTasks(currentShipment), currentShipment), [currentShipment]);
   const phase5Mapped = useMemo(() => mapTasks(PHASE_5_TASKS, currentShipment), [currentShipment]);
 
+  const remarksContext = {
+    list: currentShipment.checklist?.remarks_list || [],
+    input: remarksInput,
+    setInput: setRemarksInput,
+    onAdd: (text: string) => {
+      addRemarksItem(currentShipment.id, text);
+      setRemarksInput('');
+    },
+    onToggle: (itemId: string) => toggleRemarksItem(currentShipment.id, itemId),
+    onDelete: (itemId: string) => deleteRemarksItem(currentShipment.id, itemId)
+  };
+
   const getForwarderDisplayName = () => {
     if (currentShipment.forwarder === 'xpo') return 'XPO Logistics';
     if (currentShipment.forwarder === 'hmi') return 'HMI Logistics';
@@ -467,64 +479,6 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
                     )}
                 </div>
 
-                {/* Remarks Widget */}
-                <div className="bg-card p-4 rounded-lg border shadow-sm">
-                  <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider mb-3 flex items-center justify-between">
-                    Remarks
-                    <Badge variant="outline" className="text-[10px] h-4">{ (currentShipment.checklist?.remarks_list || []).length }</Badge>
-                  </h3>
-                  <div className="space-y-2 mb-3 max-h-40 overflow-y-auto">
-                    {(currentShipment.checklist?.remarks_list || []).map((item: any) => (
-                      <div key={item.id} className="flex items-start gap-2 group">
-                        <Checkbox 
-                          id={`remark-${item.id}`} 
-                          checked={item.completed} 
-                          onCheckedChange={() => toggleRemarksItem(currentShipment.id, item.id)}
-                          className="mt-0.5 h-3.5 w-3.5"
-                        />
-                        <Label 
-                          htmlFor={`remark-${item.id}`} 
-                          className={`text-xs flex-1 break-words cursor-pointer ${item.completed ? 'text-muted-foreground line-through' : ''}`}
-                        >
-                          {item.item}
-                        </Label>
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
-                          className="h-4 w-4 opacity-0 group-hover:opacity-100 text-destructive"
-                          onClick={() => deleteRemarksItem(currentShipment.id, item.id)}
-                        >
-                          <X className="h-3 w-3" />
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex gap-2">
-                    <Input 
-                      placeholder="New remark..." 
-                      value={remarksInput}
-                      onChange={(e) => setRemarksInput(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          addRemarksItem(currentShipment.id, remarksInput);
-                          setRemarksInput('');
-                        }
-                      }}
-                      className="h-7 text-xs"
-                    />
-                    <Button 
-                      size="icon" 
-                      variant="outline" 
-                      className="h-7 w-7"
-                      onClick={() => {
-                        addRemarksItem(currentShipment.id, remarksInput);
-                        setRemarksInput('');
-                      }}
-                    >
-                      <Plus className="h-3 w-3" />
-                    </Button>
-                  </div>
-                </div>
 
                 {/* Contacts Widget */}
                 <div className="bg-card p-4 rounded-lg border shadow-sm space-y-3">
@@ -813,6 +767,7 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
                       onToggle={(key) => toggleChecklist(currentShipment.id, key)}
                       progress={calculatePhaseProgress(currentShipment, forwarderMapped)}
                       missedTaskIds={incompleteTasks.map(t => t.id)}
+                      remarksData={remarksContext}
                   />
                 </div>
 
