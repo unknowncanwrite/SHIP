@@ -12,7 +12,7 @@ export const printDeclaration = (data: ShipmentData) => {
     <head>
       <title>Declaration - ${data.id}</title>
       <style>
-        body { font-family: 'Times New Roman', serif; padding: 150px 40px 50px 40px; line-height: 1.6; max-width: 850px; margin: 0 auto; }
+        body { font-family: 'Times New Roman', serif; padding: 250px 40px 50px 40px; line-height: 1.6; max-width: 850px; margin: 0 auto; }
         .date { text-align: right; margin-bottom: 100px; font-size: 12pt; }
         .spacer-before { height: 20px; }
         h1 { text-align: center; text-decoration: underline; margin: 20px 0; font-size: 16pt; letter-spacing: 1px; }
@@ -56,7 +56,7 @@ export const printUndertaking = (data: ShipmentData) => {
     <head>
       <title>Undertaking - ${data.id}</title>
       <style>
-        body { font-family: Arial, sans-serif; padding: 40px; line-height: 1.5; max-width: 800px; margin: 0 auto; }
+        body { font-family: Arial, sans-serif; padding: 250px 40px 50px 40px; line-height: 1.5; max-width: 800px; margin: 0 auto; }
         .header { text-align: center; margin-bottom: 30px; }
         h2 { text-decoration: underline; margin-bottom: 20px; }
         .content { text-align: justify; }
@@ -117,7 +117,7 @@ export const printShoesUndertaking = (data: ShipmentData) => {
     <head>
       <title>Shoes Undertaking - ${data.id}</title>
       <style>
-        body { font-family: 'Courier New', monospace; padding: 40px; font-size: 14px; max-width: 800px; margin: 0 auto; }
+        body { font-family: 'Courier New', monospace; padding: 250px 40px 50px 40px; font-size: 14px; max-width: 800px; margin: 0 auto; }
         h1 { text-align: center; border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 30px; }
         p { margin-bottom: 12px; }
         @media print { body { padding: 0; } }
