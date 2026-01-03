@@ -78,6 +78,12 @@ export default function PhaseSection({
           const remarksKey = `${task.id}_remarks`;
           const remarkValue = typeof checklistState[remarksKey] === 'string' ? (checklistState[remarksKey] as string) : '';
           
+          const handleRemarkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onToggle(remarksKey, e.target.value);
+          };
+          
           return (
           <div key={task.id} className={`space-y-2 ${isMissed ? 'border-l-2 border-l-warning bg-warning/5 pl-3 py-2 rounded' : ''}`}>
             <div className={`flex items-start justify-between group p-2 rounded-md hover:bg-muted/50 transition-colors ${isMissed ? 'border-l-4 border-l-warning/50 pl-1' : ''}`}>
@@ -104,9 +110,9 @@ export default function PhaseSection({
                         <Input
                           placeholder="Add remark..."
                           value={remarkValue}
-                          onChange={(e) => onToggle(remarksKey, e.target.value)}
+                          onChange={handleRemarkChange}
+                          onKeyDown={(e) => e.stopPropagation()}
                           className="h-7 text-xs bg-background/50 focus:bg-background"
-                          onClick={(e) => e.stopPropagation()}
                         />
                       </div>
                     )}
