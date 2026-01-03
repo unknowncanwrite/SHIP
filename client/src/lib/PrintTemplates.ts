@@ -12,18 +12,20 @@ export const printDeclaration = (data: ShipmentData) => {
     <head>
       <title>Declaration - ${data.id}</title>
       <style>
-        body { font-family: 'Times New Roman', serif; padding: 250px 40px 50px 40px; line-height: 1.6; max-width: 850px; margin: 0 auto; margin-top: 100px; }
-        .date { text-align: right; margin-bottom: 100px; font-size: 12pt; }
-        .spacer-before { height: 20px; }
-        h1 { text-align: center; text-decoration: underline; margin: 20px 0; font-size: 16pt; letter-spacing: 1px; }
-        .declaration-text { text-align: justify; margin: 30px 0; line-height: 1.7; font-size: 11pt; }
-        .details-section { margin-top: 40px; margin-bottom: 60px; }
+        body { font-family: 'Times New Roman', serif; padding: 250px 40px 50px 40px; line-height: 1.6; max-width: 850px; margin: 0 auto; margin-top: 100px; position: relative; }
+        .watermark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.1; pointer-events: none; display: flex; align-items: center; justify-content: center; font-size: 80pt; color: #ccc; transform: rotate(-45deg); white-space: nowrap; }
+        .date { text-align: right; margin-bottom: 100px; font-size: 12pt; position: relative; z-index: 1; }
+        .spacer-before { height: 20px; position: relative; z-index: 1; }
+        h1 { text-align: center; text-decoration: underline; margin: 20px 0; font-size: 16pt; letter-spacing: 1px; position: relative; z-index: 1; }
+        .declaration-text { text-align: justify; margin: 30px 0; line-height: 1.7; font-size: 11pt; position: relative; z-index: 1; }
+        .details-section { margin-top: 40px; margin-bottom: 60px; position: relative; z-index: 1; }
         .detail-line { margin: 8px 0; font-size: 11pt; }
-        .company-name { text-align: left; margin-top: 100px; font-size: 12pt; }
-        @media print { body { padding: 20px; } }
+        .company-name { text-align: left; margin-top: 100px; font-size: 12pt; position: relative; z-index: 1; }
+        @media print { body { padding: 20px; } .watermark { opacity: 0.05; } }
       </style>
     </head>
     <body>
+      <div class="watermark">IDEAS RECYCLING</div>
       <div class="date">${formatDate(data.details.inspectionDate || new Date().toISOString())}</div>
       <div class="spacer-before"></div>
       
