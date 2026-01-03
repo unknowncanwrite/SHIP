@@ -76,6 +76,7 @@ export default function PhaseSection({
           const isHighlighted = task.id === 'p3_prepare_docs';
           const isChecked = !!checklistState[task.id];
           const remarksKey = `${task.id}_remarks`;
+          const remarkValue = typeof checklistState[remarksKey] === 'string' ? (checklistState[remarksKey] as string) : '';
           
           return (
           <div key={task.id} className={`space-y-2 ${isMissed ? 'border-l-2 border-l-warning bg-warning/5 pl-3 py-2 rounded' : ''}`}>
@@ -99,12 +100,12 @@ export default function PhaseSection({
                     </Label>
                     
                     {task.hasRemarks && (
-                      <div className="flex-1 max-w-xs ml-4">
+                      <div className="flex-1 max-w-[200px] ml-4">
                         <Input
-                          placeholder="Remarks..."
-                          value={typeof checklistState[remarksKey] === 'string' ? (checklistState[remarksKey] as string) : ''}
+                          placeholder="Add remark..."
+                          value={remarkValue}
                           onChange={(e) => onToggle(remarksKey, e.target.value)}
-                          className="h-7 text-xs"
+                          className="h-7 text-xs bg-background/50 focus:bg-background"
                           onClick={(e) => e.stopPropagation()}
                         />
                       </div>
