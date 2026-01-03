@@ -119,35 +119,47 @@ export const printShoesUndertaking = (data: ShipmentData) => {
     <head>
       <title>Shoes Undertaking - ${data.id}</title>
       <style>
-        body { font-family: 'Courier New', monospace; padding: 250px 40px 50px 40px; font-size: 14px; max-width: 800px; margin: 0 auto; margin-top: 100px; }
-        h1 { text-align: center; border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 30px; }
-        p { margin-bottom: 12px; }
-        @media print { body { padding: 0; } }
+        body { font-family: 'Times New Roman', serif; padding: 250px 40px 50px 40px; line-height: 1.6; max-width: 800px; margin: 0 auto; margin-top: 100px; }
+        .date { text-align: left; margin-bottom: 30px; font-size: 11pt; }
+        .recipient { margin-bottom: 30px; font-size: 11pt; }
+        .subject { text-align: center; font-weight: bold; text-decoration: underline; margin-bottom: 30px; font-size: 12pt; }
+        .content { text-align: justify; margin-bottom: 30px; font-size: 11pt; }
+        .details-section { margin-bottom: 40px; font-size: 11pt; }
+        .detail-line { margin-bottom: 5px; }
+        .footer { margin-top: 60px; font-size: 11pt; }
+        .regards { margin-bottom: 40px; }
+        @media print { body { padding: 20px; } }
       </style>
     </head>
     <body>
-      <h1>UNDERTAKING FOR USED SHOES</h1>
+      <div class="date">${formatDate(data.details.inspectionDate || new Date().toISOString())}</div>
       
-      <p><strong>IDF NO:</strong> ${data.details.idf}</p>
-      <p><strong>IMPORTER:</strong> ${data.details.consignee}</p>
-      <p><strong>CONTAINER:</strong> ${data.details.container}</p>
+      <div class="recipient">
+        TO,<br/>
+        SGS PAKISTAN (PRIVATE) LIMITED<br/>
+        H-3/3, SECTOR 5, KORANGI INDUSTRIAL AREA,<br/>
+        KARACHI-74900, PAKISTAN
+      </div>
       
-      <br/>
+      <div class="subject">SUBJECT: UNDERTAKING LETTER</div>
       
-      <p>I/We hereby undertake that the used shoes imported in the above mentioned container(s) have been fumigated as per KEBS requirements.</p>
+      <div class="content">
+        We declares that this shipment of Mombasa, Kenya has no prohibited items in used shoes such as sandals, used slippers, used indoor footwear. No prohibited goods included in the consignment such as: No consignment shall contain used slippers and orthopedic
+      </div>
       
-      <p>We declare that the shoes are:</p>
-      <ul>
-        <li>Clean and free from pests/diseases</li>
-        <li>Fit for human use</li>
-        <li>Not collected from hospital waste</li>
-      </ul>
+      <div class="details-section">
+        <div class="detail-line">IDF# ${data.details.idf || '_________________'},</div>
+        <div class="detail-line">UCR# : ${data.details.ucr || '_________________'}</div>
+        <div class="detail-line">PFI# : ${data.details.proforma || '_________________'}</div>
+        <div class="detail-line">CNTR# : ${data.details.container || '_________________'}</div>
+        <div class="detail-line">IMPORTER: ${data.details.customer || '_________________'}</div>
+        <div class="detail-line">NO. OF PACKAGES: ${data.commercial?.qty || '_________________'}</div>
+      </div>
       
-      <p>We accept full responsibility for any consequences arising from false declaration.</p>
-      
-      <br/><br/>
-      <p>Signed: ____________________</p>
-      <p>Date: ${formatDate(new Date().toISOString())}</p>
+      <div class="footer">
+        <div class="regards">THANKS & REGRADS</div>
+        <div class="company">IDEAS RECYCLING PVT LTD</div>
+      </div>
       
       <script>window.print();</script>
     </body>
