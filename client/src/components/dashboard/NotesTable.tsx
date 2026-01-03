@@ -113,32 +113,44 @@ export default function NotesTable({ open, onOpenChange }: NotesTableProps) {
                   {sortedNotes.map((note) => (
                     <tr key={note.id} className="border-b hover:bg-muted/10 transition-colors group">
                       <td className="px-6 py-2 text-xs">
-                        <input
-                          type="text"
+                        <textarea
                           value={editValues[note.id]?.name ?? note.name}
                           onChange={(e) => handleUpdateNote(note.id, 'name', e.target.value)}
                           onBlur={() => handleBlur(note.id)}
-                          className="w-full bg-transparent border-0 focus:outline-none focus:ring-0 font-medium text-foreground placeholder-muted-foreground"
+                          className="w-full bg-transparent border-0 focus:outline-none focus:ring-0 font-medium text-foreground placeholder-muted-foreground resize-none overflow-hidden min-h-[1.5rem]"
                           placeholder="Name..."
+                          onInput={(e) => {
+                            const target = e.target as HTMLTextAreaElement;
+                            target.style.height = 'auto';
+                            target.style.height = target.scrollHeight + 'px';
+                          }}
+                          rows={1}
                         />
                       </td>
-                      <td className="px-6 py-2 text-xs flex items-center justify-between gap-1">
-                        <input
-                          type="text"
-                          value={editValues[note.id]?.notes ?? note.notes}
-                          onChange={(e) => handleUpdateNote(note.id, 'notes', e.target.value)}
-                          onBlur={() => handleBlur(note.id)}
-                          className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 text-foreground placeholder-muted-foreground"
-                          placeholder="Notes..."
-                        />
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-6 w-6 p-0 text-destructive opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
-                          onClick={() => handleDelete(note.id)}
-                        >
-                          <Trash2 className="h-3 w-3" />
-                        </Button>
+                      <td className="px-6 py-2 text-xs">
+                        <div className="flex items-start justify-between gap-1">
+                          <textarea
+                            value={editValues[note.id]?.notes ?? note.notes}
+                            onChange={(e) => handleUpdateNote(note.id, 'notes', e.target.value)}
+                            onBlur={() => handleBlur(note.id)}
+                            className="flex-1 bg-transparent border-0 focus:outline-none focus:ring-0 text-foreground placeholder-muted-foreground resize-none overflow-hidden min-h-[1.5rem]"
+                            placeholder="Notes..."
+                            onInput={(e) => {
+                              const target = e.target as HTMLTextAreaElement;
+                              target.style.height = 'auto';
+                              target.style.height = target.scrollHeight + 'px';
+                            }}
+                            rows={1}
+                          />
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-6 w-6 p-0 text-destructive opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
+                            onClick={() => handleDelete(note.id)}
+                          >
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        </div>
                       </td>
                     </tr>
                   ))}
