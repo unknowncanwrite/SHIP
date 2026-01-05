@@ -39,6 +39,9 @@ export default function Dashboard() {
     .sort((a, b) => {
       if (sortBy === 'date') return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
       if (sortBy === 'progress') return calculateProgress(b as any) - calculateProgress(a as any);
+      if (sortBy === 'invoice') return a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: 'base' });
+      if (sortBy === 'customer') return (a.details.customer || '').localeCompare(b.details.customer || '');
+      if (sortBy === 'container') return (a.details.container || '').localeCompare(b.details.container || '');
       if (sortBy === 'status') {
         const progA = calculateProgress(a as any);
         const progB = calculateProgress(b as any);
