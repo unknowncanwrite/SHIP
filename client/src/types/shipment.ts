@@ -58,7 +58,7 @@ export const initialShipmentData: ShipmentData = {
   createdAt: Date.now(),
   lastUpdated: Date.now(),
   shipmentType: 'with-inspection',
-  forwarder: 'xpo',
+  forwarder: '',
   manualForwarderName: null,
   manualMethod: 'email',
   fumigation: 'sky-services',
