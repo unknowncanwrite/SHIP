@@ -160,89 +160,50 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Quick Actions & Recent Activity suggestion area */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-3 space-y-6">
-            {/* Filters & Controls */}
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-card p-4 rounded-lg border border-border shadow-sm">
-              <div className="relative w-full sm:w-96">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input 
-                  placeholder="Search by ID, Customer, Container, Booking..." 
-                  className="pl-9 bg-background border-border"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-              
-              <div className="flex items-center gap-3 w-full sm:w-auto">
-                <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-full sm:w-[180px]">
-                    <div className="flex items-center gap-2">
-                      <Filter className="h-4 w-4 text-muted-foreground" />
-                      <SelectValue placeholder="Sort by" />
-                    </div>
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="date">Date Created</SelectItem>
-                    <SelectItem value="progress">Progress %</SelectItem>
-                    <SelectItem value="status">Status (Active First)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+        {/* Main Content */}
+        <div className="space-y-6">
+          {/* Filters & Controls */}
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-card p-4 rounded-lg border border-border shadow-sm">
+            <div className="relative w-full sm:w-96">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input 
+                placeholder="Search by ID, Customer, Container, Booking..." 
+                className="pl-9 bg-background border-border"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
-
-            {/* Grid */}
-            {filteredShipments.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredShipments.map((shipment) => (
-                  <ShipmentCard key={shipment.id} data={shipment as any} />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-20 text-muted-foreground bg-card rounded-xl border border-dashed border-border">
-                <p className="text-lg font-medium text-foreground">No shipments match your search</p>
-                <p className="text-sm">Try adjusting your filters or search terms.</p>
-              </div>
-            )}
-          </div>
-
-          <div className="space-y-6">
-            <div className="bg-card rounded-xl p-4 border border-border shadow-sm">
-              <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground mb-4">Quick Actions</h3>
-              <div className="grid grid-cols-1 gap-2">
-                <Button variant="outline" className="justify-start gap-2 h-10" onClick={() => setIsDialogOpen(true)}>
-                  <Plus className="h-4 w-4" /> New Shipment
-                </Button>
-                <Button variant="outline" className="justify-start gap-2 h-10" asChild>
-                  <Link href="/contacts">
-                    <Plus className="h-4 w-4" /> Manage Contacts
-                  </Link>
-                </Button>
-              </div>
-            </div>
-
-            <div className="bg-card rounded-xl p-4 border border-border shadow-sm">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground">Recent Activity</h3>
-                <Badge variant="outline" className="text-[10px]">Auto-updated</Badge>
-              </div>
-              <div className="space-y-4">
-                {shipments.slice(0, 5).map((s: any) => (
-                  <div key={s.id} className="flex gap-3 text-xs">
-                    <div className="h-2 w-2 rounded-full bg-primary mt-1 shrink-0" />
-                    <div className="space-y-1">
-                      <p className="font-medium leading-none">{s.id}</p>
-                      <p className="text-muted-foreground line-clamp-1">Updated recently by system</p>
-                    </div>
+            
+            <div className="flex items-center gap-3 w-full sm:w-auto">
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-full sm:w-[180px]">
+                  <div className="flex items-center gap-2">
+                    <Filter className="h-4 w-4 text-muted-foreground" />
+                    <SelectValue placeholder="Sort by" />
                   </div>
-                ))}
-                {shipments.length === 0 && (
-                  <p className="text-xs text-muted-foreground italic">No recent activity</p>
-                )}
-              </div>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="date">Date Created</SelectItem>
+                  <SelectItem value="progress">Progress %</SelectItem>
+                  <SelectItem value="status">Status (Active First)</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
+
+          {/* Grid */}
+          {filteredShipments.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredShipments.map((shipment) => (
+                <ShipmentCard key={shipment.id} data={shipment as any} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20 text-muted-foreground bg-card rounded-xl border border-dashed border-border">
+              <p className="text-lg font-medium text-foreground">No shipments match your search</p>
+              <p className="text-sm">Try adjusting your filters or search terms.</p>
+            </div>
+          )}
         </div>
       </main>
     </div>
