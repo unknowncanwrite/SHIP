@@ -142,21 +142,19 @@ export default function PhaseSection({
                       <div className="space-y-1">
                         <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">Checklist</div>
                         {task.subTasks && task.subTasks.map((subTask, idx) => {
-                          const subTaskKey = `${task.id}-subtask-${idx}`;
+                          const subTaskKey = `${task.id}_subtask_${idx}`;
+                          const subIsChecked = !!checklistState[subTaskKey];
                           return (
                             <div key={idx} className="flex items-center gap-2">
                               <Checkbox 
                                 id={subTaskKey}
-                                checked={subTaskState[subTaskKey] || false}
-                                onCheckedChange={() => setSubTaskState(prev => ({
-                                  ...prev,
-                                  [subTaskKey]: !prev[subTaskKey]
-                                }))}
+                                checked={subIsChecked}
+                                onCheckedChange={(checked) => task.onSubTaskToggle?.(task.id, idx, !!checked)}
                                 className="h-3.5 w-3.5"
                               />
                               <Label 
                                 htmlFor={subTaskKey}
-                                className="text-xs font-medium cursor-pointer text-muted-foreground"
+                                className={`text-xs font-medium cursor-pointer ${subIsChecked ? 'text-muted-foreground line-through' : 'text-muted-foreground'}`}
                               >
                                 {subTask}
                               </Label>
@@ -232,11 +230,8 @@ export default function PhaseSection({
                       <div className="flex items-center gap-2">
                         <Checkbox 
                           id={`${task.id}-attachment-confirm`}
-                          checked={subTaskState[`${task.id}-attachment-confirm`] || false}
-                          onCheckedChange={() => setSubTaskState(prev => ({
-                            ...prev,
-                            [`${task.id}-attachment-confirm`]: !prev[`${task.id}-attachment-confirm`]
-                          }))}
+                          checked={!!checklistState[`${task.id}_subtask_confirm`]}
+                          onCheckedChange={(checked) => task.onSubTaskToggle?.(task.id, 999, !!checked)} // Using 999 for special confirm
                           className="h-4 w-4"
                         />
                         <Label 
@@ -251,21 +246,19 @@ export default function PhaseSection({
                   {task.id !== 'p4_final_bl' && task.subTasks && task.subTasks.length > 0 && (
                     <div className="text-xs mt-2 ml-0 space-y-1">
                       {task.subTasks.map((subTask, idx) => {
-                        const subTaskKey = `${task.id}-subtask-${idx}`;
+                        const subTaskKey = `${task.id}_subtask_${idx}`;
+                        const subIsChecked = !!checklistState[subTaskKey];
                         return (
                           <div key={idx} className="flex items-center gap-2">
                             <Checkbox 
                               id={subTaskKey}
-                              checked={subTaskState[subTaskKey] || false}
-                              onCheckedChange={() => setSubTaskState(prev => ({
-                                ...prev,
-                                [subTaskKey]: !prev[subTaskKey]
-                              }))}
+                              checked={subIsChecked}
+                              onCheckedChange={(checked) => task.onSubTaskToggle?.(task.id, idx, !!checked)}
                               className="h-4 w-4"
                             />
                             <Label 
                               htmlFor={subTaskKey}
-                              className="text-xs font-medium cursor-pointer text-muted-foreground"
+                              className={`text-xs font-medium cursor-pointer ${subIsChecked ? 'text-muted-foreground line-through' : 'text-muted-foreground'}`}
                             >
                               {subTask}
                             </Label>
