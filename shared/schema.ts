@@ -11,7 +11,7 @@ export const shipments = pgTable("shipments", {
   
   // Logic toggles
   shipmentType: varchar("shipment_type", { length: 20 }).notNull().default("with-inspection"),
-  forwarder: varchar("forwarder", { length: 20 }).notNull().default("xpo"),
+  forwarder: varchar("forwarder", { length: 20 }).notNull().default(""),
   manualForwarderName: text("manual_forwarder_name").default(""),
   manualMethod: varchar("manual_method", { length: 20 }).default("email"),
   fumigation: varchar("fumigation", { length: 20 }).notNull().default("sky-services"),
