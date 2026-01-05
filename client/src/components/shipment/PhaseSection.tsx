@@ -24,6 +24,7 @@ interface Task {
   subTasks?: string[];
   hideSubject?: boolean;
   hasRemarks?: boolean;
+  onToggle?: (checked: boolean) => void;
   onSubTaskToggle?: (taskId: string, subTaskIdx: number, checked: boolean) => void;
 }
 
@@ -121,7 +122,7 @@ export default function PhaseSection({
                 <Checkbox 
                   id={task.id} 
                   checked={isChecked}
-                  onCheckedChange={(checked) => onToggle(task.id, !!checked)}
+                  onCheckedChange={(checked) => task.onToggle ? task.onToggle(!!checked) : onToggle(task.id, !!checked)}
                   className="mt-1"
                 />
                 <div className="space-y-1 flex-1">

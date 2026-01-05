@@ -360,6 +360,7 @@ function ShipmentDetailContent({ currentShipment: inputShipment }: { currentShip
       emailTo: typeof t.emailTo === 'function' ? t.emailTo(data) : t.emailTo,
       emailCC: typeof t.emailCC === 'function' ? t.emailCC(data) : t.emailCC,
       whatsappBody: typeof t.whatsappBody === 'function' ? t.whatsappBody(data) : t.whatsappBody,
+      onToggle: (checked: boolean) => toggleChecklist(t.id, checked),
       onSubTaskToggle: (taskId: string, subTaskIdx: number, checked: boolean) => {
         const key = subTaskIdx === 999 ? `${taskId}_subtask_confirm` : `${taskId}_subtask_${subTaskIdx}`;
         toggleChecklist(key, checked);
