@@ -25,14 +25,25 @@ export default function Dashboard() {
   const { theme, setTheme } = useTheme();
 
   const filteredShipments = shipments
-    .filter((s) => 
-      s.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      s.details.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      s.details.container.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    .filter((s) => {
+      const searchLower = searchTerm.toLowerCase();
+      return (
+        s.id.toLowerCase().includes(searchLower) ||
+        (s.details.customer && s.details.customer.toLowerCase().includes(searchLower)) ||
+        (s.details.container && s.details.container.toLowerCase().includes(searchLower)) ||
+        (s.details.booking && s.details.booking.toLowerCase().includes(searchLower))
+      );
+    })
     .sort((a, b) => {
-      if (sortBy === 'date') return b.createdAt - a.createdAt;
+      if (sortBy === 'date') return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
       if (sortBy === 'progress') return calculateProgress(b as any) - calculateProgress(a as any);
+      if (sortBy === 'status') {
+        const progA = calculateProgress(a as any);
+        const progB = calculateProgress(b as any);
+        if (progA === 100 && progB < 100) return 1;
+        if (progA < 100 && progB === 100) return -1;
+        return progB - progA;
+      }
       return 0;
     });
 
