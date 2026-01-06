@@ -48,3 +48,4 @@ integrations = ["javascript_database:1.0.0"]
 GITHUB_REPO_NAME = "ship"
 GITHUB_USERNAME = "unknowncanwrite"
 GITHUB_TOKEN = "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"
+MONGODB_URI = "mongodb+srv://Vercel-Admin-SHIPVIEWORG:wJb24jnYbjnbuhf0@shipvieworg.nifftjy.mongodb.net/?retryWrites=true&w=majority"
