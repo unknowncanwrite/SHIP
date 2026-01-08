@@ -1,0 +1,149 @@
+    data: { error: [Object] },
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'cache-control': 'private, max-age=0',
+      connection: 'close',
+      'content-length': '638',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 08 Jan 2026 16:58:40 GMT',
+      expires: 'Thu, 08 Jan 2026 16:58:40 GMT',
+      server: 'ESF',
+      vary: 'Origin, X-Origin',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-guploader-uploadid': 'AHVrFxPUmw1ccKHD5yVOPBHcyBF6vmSOUl8OWLtGqyctf7iSzQ_4mAWHpRRWo3Dx3-OfAiv4',
+      'x-xss-protection': '0'
+    },
+    status: 403,
+    statusText: 'Forbidden',
+    request: {
+      responseURL: 'https://www.googleapis.com/upload/drive/v3/files?fields=id%2C%20name%2C%20webViewLink&uploadType=multipart'
+    }
+  },
+  error: undefined,
+  status: 403,
+  code: 403,
+  errors: [
+    {
+      message: 'Service Accounts do not have storage quota. Leverage shared drives (https://developers.google.com/workspace/drive/api/guides/about-shareddrives), or use OAuth delegation (http://support.google.com/a/answer/7281227) instead.',
+      domain: 'usageLimits',
+      reason: 'storageQuotaExceeded'
+    }
+  ],
+  [Symbol(gaxios-gaxios-error)]: '6.7.1'
+}
+4:58:40 PM [express] POST /api/files/upload 500 in 1609ms :: {"error":"Service Accounts do not have storage quota. Leverage shared drives (https://developers.google.com/workspace/drive/api/guides/about-shareddrives), or use OAuth delegation (http://support.google.com/a/answer/7281227) instead."}
+4:59:10 PM [express] POST /api/shipments 201 in 458ms :: {"id":"123","createdAt":1767891504020,"lastUpdated":1767891504020,"shipmentType":"with-inspection","forwarder":"","manualForwarderName":"","manualMethod":"email","fumigation":"sky-services","manualFumigationName":"","manualFumigationMethod":"email","details":{"eta":"","idf":"","ucr":"","seal":"","brand":"","booking":"","customer":"","location":"","proforma":"","consignee":"","container":"","loadingDate":"","commercialInv":"","inspectionDate":""},"commercial":{"qty":"","invoice":"","netWeight":"","grossWeight":""},"actual":{"qty":"","invoice":"","netWeight":"","grossWeight":"","invoiceSent":false},"customTasks":[],"documents":[],"checklist":{},"shipmentChecklist":[]}
+4:59:11 PM [express] GET /api/shipments 200 in 225ms :: [{"id":"123","createdAt":1767891504020,"lastUpdated":1767891504020,"shipmentType":"with-inspection","forwarder":"","manualForwarderName":"","manualMethod":"email","fumigation":"sky-services","manualFumigationName":"","manualFumigationMethod":"email","details":{"eta":"","idf":"","ucr":"","seal":"","brand":"","booking":"","customer":"","location":"","proforma":"","consignee":"","container":"","loadingDate":"","commercialInv":"","inspectionDate":""},"commercial":{"qty":"","invoice":"","netWeight":"","grossWeight":""},"actual":{"qty":"","invoice":"","netWeight":"","grossWeight":"","invoiceSent":false},"customTasks":[],"documents":[],"checklist":{},"shipmentChecklist":[]},{"id":"312","createdAt":1767889362393,"lastUpdated":1767889362393,"shipmentType":"with-inspection","forwarder":"","manualForwarderName":"","manualMethod":"email","fumigation":"sky-services","manualFumigationName":"","manualFumigationMethod":"email","details":{"eta":"","idf":"","ucr":"","seal":"","brand":"","booking":"","customer":"","location":"","proforma":"","consignee":"","container":"","loadingDate":"","commercialInv":"","inspectionDate":""},"commercial":{"qty":"","invoice":"","netWeight":"","grossWeight":""},"actual":{"qty":"","invoice":"","netWeight":"","grossWeight":"","invoiceSent":false},"customTasks":[],"documents":[],"checklist":{},"shipmentChecklist":[]},{"id":"12","createdAt":1767884963009,"lastUpdated":1767884963009,"shipmentType":"with-inspection","forwarder":"","manualForwarderName":"","manualMethod":"email","fumigation":"sky-services","manualFumigationName":"","manualFumigationMethod":"email","details":{"eta":"","idf":"","ucr":"","seal":"","brand":"","booking":"","customer":"","location":"","proforma":"","consignee":"","container":"","loadingDate":"","commercialInv":"","inspectionDate":""},"commercial":{"qty":"","invoice":"","netWeight":"","grossWeight":""},"actual":{"qty":"","invoice":"","netWeight":"","grossWeight":"","invoiceSent":false},"customTasks":[],"documents":[],"checklist":{},"shipmentChecklist":[]},{"id":"1","createdAt":1767718266470,"lastUpdated":1767718319431,"shipmentType":"with-inspection","forwarder":"","manualForwarderName":"","manualMethod":"email","fumigation":"sky-services","manualFumigationName":"","manualFumigationMethod":"email","details":{"eta":"","idf":"","ucr":"","seal":"","brand":"","booking":"","customer":"","location":"","proforma":"","consignee":"","container":"","loadingDate":"","commercialInv":"","inspectionDate":""},"commercial":{"qty":"","invoice":"","netWeight":"","grossWeight":""},"actual":{"qty":"","invoice":"","netWeight":"","grossWeight":"","invoiceSent":false},"customTasks":[],"documents":[{"id":"1nx48LyA-dEUIrH4GUrH1s-BPo3ArCnx2","file":"https://drive.google.com/file/d/1nx48LyA-dEUIrH4GUrH1s-BPo3ArCnx2/view?usp=drivesdk","name":"ABCD","createdAt":1767718319083}],"checklist":{},"shipmentChecklist":[]}]
+4:59:11 PM [express] GET /api/shipments/123 200 in 447ms :: {"id":"123","createdAt":1767891504020,"lastUpdated":1767891504020,"shipmentType":"with-inspection","forwarder":"","manualForwarderName":"","manualMethod":"email","fumigation":"sky-services","manualFumigationName":"","manualFumigationMethod":"email","details":{"eta":"","idf":"","ucr":"","seal":"","brand":"","booking":"","customer":"","location":"","proforma":"","consignee":"","container":"","loadingDate":"","commercialInv":"","inspectionDate":""},"commercial":{"qty":"","invoice":"","netWeight":"","grossWeight":""},"actual":{"qty":"","invoice":"","netWeight":"","grossWeight":"","invoiceSent":false},"customTasks":[],"documents":[],"checklist":{},"shipmentChecklist":[]}
+Upload error: GaxiosError: Service Accounts do not have storage quota. Leverage shared drives (https://developers.google.com/workspace/drive/api/guides/about-shareddrives), or use OAuth delegation (http://support.google.com/a/answer/7281227) instead.
+    at Gaxios._request (/opt/render/project/src/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async JWT.requestAsync (/opt/render/project/src/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async a1 (/opt/render/project/src/dist/index.cjs:91:609)
+    at async /opt/render/project/src/dist/index.cjs:91:6002 {
+  config: {
+    url: 'https://www.googleapis.com/upload/drive/v3/files?fields=id%2C%20name%2C%20webViewLink&uploadType=multipart',
+    method: 'POST',
+    apiVersion: '',
+    userAgentDirectives: [ [Object] ],
+    paramsSerializer: [Function (anonymous)],
+    data: PassThrough {
+      _events: [Object],
+      _readableState: [ReadableState],
+      _writableState: [WritableState],
+      allowHalfOpen: true,
+      _maxListeners: undefined,
+      _flush: [Function: flush],
+      _eventsCount: 2,
+      [Symbol(shapeMode)]: true,
+      [Symbol(kCapture)]: false,
+      [Symbol(kCallback)]: null
+    },
+    headers: {
+      'x-goog-api-client': 'gdcl/7.2.0 gl-node/22.16.0',
+      'content-type': 'multipart/related; boundary=453a55eb-cec7-450c-9e0b-7a4fa5f8f2ea',
+      'Accept-Encoding': 'gzip',
+      'User-Agent': 'google-api-nodejs-client/7.2.0 (gzip)',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.'
+    },
+    params: { fields: 'id, name, webViewLink', uploadType: 'multipart' },
+    validateStatus: [Function (anonymous)],
+    retry: true,
+    body: PassThrough {
+      _events: [Object],
+      _readableState: [ReadableState],
+      _writableState: [WritableState],
+      allowHalfOpen: true,
+      _maxListeners: undefined,
+      _flush: [Function: flush],
+      _eventsCount: 2,
+      [Symbol(shapeMode)]: true,
+      [Symbol(kCapture)]: false,
+      [Symbol(kCallback)]: null
+    },
+    responseType: 'unknown',
+    errorRedactor: [Function: defaultErrorRedactor],
+    retryConfig: {
+      currentRetryAttempt: 0,
+      retry: 3,
+      httpMethodsToRetry: [Array],
+      noResponseRetries: 2,
+      retryDelayMultiplier: 2,
+      timeOfFirstRequest: 1767891559800,
+      totalTimeout: 9007199254740991,
+      maxRetryDelay: 9007199254740991,
+      statusCodesToRetry: [Array]
+    }
+  },
+  response: {
+    config: {
+      url: 'https://www.googleapis.com/upload/drive/v3/files?fields=id%2C%20name%2C%20webViewLink&uploadType=multipart',
+      method: 'POST',
+      apiVersion: '',
+      userAgentDirectives: [Array],
+      paramsSerializer: [Function (anonymous)],
+      data: [PassThrough],
+      headers: [Object],
+      params: [Object],
+      validateStatus: [Function (anonymous)],
+      retry: true,
+      body: [PassThrough],
+      responseType: 'unknown',
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: { error: [Object] },
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'cache-control': 'private, max-age=0',
+      connection: 'close',
+      'content-length': '638',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 08 Jan 2026 16:59:19 GMT',
+      expires: 'Thu, 08 Jan 2026 16:59:19 GMT',
+      server: 'ESF',
+      vary: 'Origin, X-Origin',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-guploader-uploadid': 'AHVrFxMrc5aNBYs1Axd96lIJbqJS7GAxBKt2717wciQvkuEdrAaHqfoRxnLFqEIGevh6HpPY',
+      'x-xss-protection': '0'
+    },
+    status: 403,
+    statusText: 'Forbidden',
+    request: {
+      responseURL: 'https://www.googleapis.com/upload/drive/v3/files?fields=id%2C%20name%2C%20webViewLink&uploadType=multipart'
+    }
+  },
+  error: undefined,
+  status: 403,
+  code: 403,
+  errors: [
+    {
+      message: 'Service Accounts do not have storage quota. Leverage shared drives (https://developers.google.com/workspace/drive/api/guides/about-shareddrives), or use OAuth delegation (http://support.google.com/a/answer/7281227) instead.',
+      domain: 'usageLimits',
+      reason: 'storageQuotaExceeded'
+    }
+  ],
+  [Symbol(gaxios-gaxios-error)]: '6.7.1'
+}
+4:59:19 PM [express] POST /api/files/upload 500 in 1393ms :: {"error":"Service Accounts do not have storage quota. Leverage shared drives (https://developers.google.com/workspace/drive/api/guides/about-shareddrives), or use OAuth delegation (http://support.google.com/a/answer/7281227) instead."}
