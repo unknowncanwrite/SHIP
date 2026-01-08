@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getFileFromDrive, deleteFileFromDrive } from '../lib/google-drive.js';
+import { getFile, deleteFile } from '../lib/file-storage.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -18,14 +18,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     if (req.method === 'GET') {
-      const file = await getFileFromDrive(id);
+      const file = await getFile(id);
       res.setHeader('Content-Type', file.mimeType);
       res.setHeader('Content-Disposition', `attachment; filename="${file.name}"`);
       return res.send(file.data);
     }
 
     if (req.method === 'DELETE') {
-      await deleteFileFromDrive(id);
+      await deleteFile(id);
       return res.status(204).end();
     }
 

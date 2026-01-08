@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { uploadFileToDrive } from '../lib/google-drive.js';
+import { uploadFile } from '../lib/file-storage.js';
 
 export const config = {
   api: {
@@ -23,13 +23,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { fileName, mimeType, fileContent, folderId } = req.body;
+    const { fileName, mimeType, fileContent } = req.body;
 
     if (!fileName || !mimeType || !fileContent) {
       return res.status(400).json({ error: 'Missing required fields: fileName, mimeType, fileContent' });
     }
 
-    const result = await uploadFileToDrive(fileName, mimeType, fileContent, folderId);
+    const result = await uploadFile(fileName, mimeType, fileContent);
 
     return res.status(201).json(result);
   } catch (error: any) {

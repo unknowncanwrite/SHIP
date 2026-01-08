@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertShipmentSchema, insertNoteSchema, insertContactSchema, type Shipment } from "@shared/schema";
 import { z } from "zod";
-import { uploadFileToDrive, deleteFileFromDrive } from "./google-drive";
+import { uploadFile, deleteFile } from "./file-storage";
 
 export async function registerRoutes(
   httpServer: Server,
@@ -258,7 +258,7 @@ export async function registerRoutes(
     }
   });
 
-  // ============ FILE UPLOAD ROUTES (Google Drive) ============
+  // ============ FILE UPLOAD ROUTES (Supabase Storage) ============
   
   app.post("/api/files/upload", async (req, res) => {
     try {
@@ -268,7 +268,7 @@ export async function registerRoutes(
         return res.status(400).json({ error: 'Missing required fields: fileName, mimeType, fileContent' });
       }
 
-      const result = await uploadFileToDrive(fileName, mimeType, fileContent);
+      const result = await uploadFile(fileName, mimeType, fileContent);
       res.status(201).json(result);
     } catch (error: any) {
       console.error('Upload error:', error);
@@ -278,7 +278,7 @@ export async function registerRoutes(
 
   app.delete("/api/files/:id", async (req, res) => {
     try {
-      await deleteFileFromDrive(req.params.id);
+      await deleteFile(req.params.id);
       res.status(204).send();
     } catch (error: any) {
       console.error('Delete file error:', error);
